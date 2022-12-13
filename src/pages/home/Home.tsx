@@ -17,24 +17,36 @@ import VkPage from "./components/VkNews";
 import InfoButtons from "./components/InfoButtons";
 import TopFarm from "./components/TopFarm";
 
+const gridItem={        
+  paddingRight: "12px",
+  paddingLeft: "12px"
+}
+
+const gridContainer={        
+  paddingTop: "24px",
+  paddingBottom: "24px"
+}
+
 const Home = () => {
+
+
   return (
     //0b0d12
-    <div style={{ backgroundColor: "#0b0d12", height: "110vh" }}>
+    <div>
       <Grid>
         <Box sx={{ flexGrow: 1 }}>
           <ResponsiveAppBar></ResponsiveAppBar>
           <Container maxWidth="xl">
-            <Grid container spacing={3} margin="2px">
-              <Grid item xs={3}>
+            <Grid container style={gridContainer}>
+              <Grid item xs={3} style={gridItem}>
                 {ServerStatistic()}
                 {TopPvP()}
                 {TopClans()}
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} style={gridItem}>
                 {VkPage()}
               </Grid>
-              <Grid item xs>
+              <Grid item xs style={gridItem}>
                 {InfoButtons()}
                 {TopFarm()}
               </Grid>
