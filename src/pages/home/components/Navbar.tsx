@@ -18,10 +18,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 const ResponsiveAppBar = () => {
   return (
     
-      <AppBar position="static" style={{backgroundColor:'#0b0d12'}}>
+      <AppBar position="static" style={{backgroundColor:'#F5F5DC'}}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "#F5F5DC" }} />
           </Toolbar>
         </Container>
       </AppBar>

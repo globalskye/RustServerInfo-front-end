@@ -13,6 +13,8 @@ const ServerStatistic = () => {
       sx={{
         height: 200,
         borderRadius: "10px",
+        paddingRight: "12px",
+        paddingLeft: "12px"
       }}
     >
       <Typography variant="h4" textAlign="center">
