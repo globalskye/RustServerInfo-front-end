@@ -37,8 +37,11 @@ const Home = () => {
         <Box sx={{ flexGrow: 1 }}>
           <ResponsiveAppBar></ResponsiveAppBar>
           <Container maxWidth="xl">
+<<<<<<< armvi_workspace
             <Grid container style={gridContainer}>
               <Grid item xs={3} style={gridItem}>
+
+         
                 {ServerStatistic()}
                 {TopPvP()}
                 {TopClans()}
