@@ -26,7 +26,7 @@ const Home = () => {
           <ResponsiveAppBar></ResponsiveAppBar>
           <Container maxWidth="xl">
             <Grid container spacing={3} margin="2px">
-              <Grid item xs={3}>
+              <Grid item xs={3}>  
                 {ServerStatistic()}
                 {TopPvP()}
                 {TopClans()}
