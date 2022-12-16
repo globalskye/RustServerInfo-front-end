@@ -1,19 +1,18 @@
-import * as React from "react";
+import { useEffect, useState } from 'react';
 
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box';
 
-import { Chip, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
-import { LinearProgress } from "@mui/material";
-import { getOnline } from "../../../service";
-import { Online } from "../../../types";
+import { LinearProgress } from '@mui/material';
+import { getOnline } from '../../../service';
+import { Online } from '../../../types';
 
 const ServerStatistic = () => {
-  const [online, setOnline] = React.useState<Online>();
-  React.useEffect(() => {
+  const [online, setOnline] = useState<Online>();
+  useEffect(() => {
     getOnline().then(
       (response) => {
-        console.log(response.data);
         setOnline(response.data);
       },
       (error) => {
@@ -21,53 +20,57 @@ const ServerStatistic = () => {
       }
     );
   }, []);
-  const onlineComponent = () => {
+  const OnlineComponent = () => {
+    const handleRedirect = (name: string) => {
+      window.location.href = `/profile/${name}`;
+    };
+
     return (
       <>
         {online?.online.map((item: string) => (
-          <Chip sx={{borderRadius:"2px", margin:"2px"}} label={item} onClick={()=>{console.log(item)}}/>
+          <Typography>
+            {item}
+          </Typography>
         ))}
       </>
     );
   };
+
   return (
     <Box
       bgcolor="#F5F5DC"
       sx={{
-        height: "100%",
+        height: 200,
         borderRadius: "10px",
         paddingRight: "12px",
         paddingLeft: "12px",
       }}
     >
       <Typography variant="h4" textAlign="center">
-        Статистика
+        Statistics
       </Typography>
       <Box
         sx={{
-          margin: "5px",
-          height: "150px",
-          position: "relative",
-        }}
-      >
+          margin: '5px',
+          position: 'relative'
+        }}>
         <LinearProgress
-          sx={{ height: "30px" }}
+          sx={{ height: '30px' }}
           variant="buffer"
-          value={online?.online.length}
+          value={online?.online.length || 0}
           valueBuffer={100}
         />
         <Typography
           style={{
-            position: "absolute",
-            color: "white",
+            position: 'absolute',
+            color: 'white',
             top: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
+            left: '50%',
+            transform: 'translateX(-50%)'
+          }}>
           Classic {online?.online.length}/100
         </Typography>
-        {onlineComponent()}
+        <OnlineComponent />
       </Box>
     </Box>
   );
