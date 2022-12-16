@@ -21,10 +21,14 @@ const ServerStatistic = () => {
     );
   }, []);
   const OnlineComponent = () => {
+    const handleRedirect = (name: string) => {
+      window.location.href = `/profile/${name}`;
+    };
+
     return (
       <>
         {online?.online.map((item: string) => (
-          <Chip key={item} label={item}></Chip>
+          <Chip key={item} label={item} clickable onClick={() => handleRedirect(item)}></Chip>
         ))}
       </>
     );
