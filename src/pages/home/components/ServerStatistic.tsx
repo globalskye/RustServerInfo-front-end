@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 
-import { Typography } from "@mui/material";
+import { Chip, Typography } from '@mui/material';
 
 import { LinearProgress } from '@mui/material';
 import { getOnline } from '../../../service';
@@ -28,9 +28,7 @@ const ServerStatistic = () => {
     return (
       <>
         {online?.online.map((item: string) => (
-          <Typography>
-            {item}
-          </Typography>
+          <Chip key={item} label={item} onClick={() => handleRedirect(item)} clickable />
         ))}
       </>
     );
@@ -41,11 +39,10 @@ const ServerStatistic = () => {
       bgcolor="#F5F5DC"
       sx={{
         height: 200,
-        borderRadius: "10px",
-        paddingRight: "12px",
-        paddingLeft: "12px",
-      }}
-    >
+        borderRadius: '10px',
+        paddingRight: '12px',
+        paddingLeft: '12px'
+      }}>
       <Typography variant="h4" textAlign="center">
         Statistics
       </Typography>
