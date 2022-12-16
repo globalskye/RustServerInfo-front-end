@@ -15,24 +15,16 @@ const InfoButtons = () => {
       </Typography>
       <Box>
         <Button variant="contained" sx={{ width: '100%', height: '40px' }}>
-          <Typography variant="h5" textAlign="center">
-            Скачать клиент
-          </Typography>
+          Скачать клиент
         </Button>
         <Button variant="contained" sx={{ width: '100%', height: '40px', marginTop: '4px' }}>
-          <Typography variant="h5" textAlign="center">
-            ПРАВИЛА
-          </Typography>
+          ПРАВИЛА
         </Button>
         <Button variant="contained" sx={{ width: '100%', height: '40px', marginTop: '4px' }}>
-          <Typography variant="h5" textAlign="center">
-            VK
-          </Typography>
+          VK
         </Button>
         <Button variant="contained" sx={{ width: '100%', height: '40px', marginTop: '4px' }}>
-          <Typography variant="h5" textAlign="center">
-            DISCORD
-          </Typography>
+          DISCORD
         </Button>
       </Box>
     </Box>
