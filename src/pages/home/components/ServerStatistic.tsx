@@ -5,8 +5,33 @@ import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
 import { LinearProgress } from "@mui/material";
+import { getOnline } from "../../../service";
+import { Online } from "../../../types";
 
 const ServerStatistic = () => {
+  const [online, setOnline] = React.useState<Online>();
+  React.useEffect(() => {
+    getOnline().then(
+      (response) => {
+        console.log(response.data);
+        setOnline(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+  const onlineComponent = () => {
+    return (
+      <>
+        {online?.online.map((item: string) => (
+          <Typography>
+            {item}
+          </Typography>
+        ))}
+      </>
+    );
+  };
   return (
     <Box
       bgcolor="#F5F5DC"
@@ -14,7 +39,7 @@ const ServerStatistic = () => {
         height: 200,
         borderRadius: "10px",
         paddingRight: "12px",
-        paddingLeft: "12px"
+        paddingLeft: "12px",
       }}
     >
       <Typography variant="h4" textAlign="center">
@@ -30,9 +55,8 @@ const ServerStatistic = () => {
         <LinearProgress
           sx={{ height: "30px" }}
           variant="buffer"
-          value={40}
+          value={online?.online.length}
           valueBuffer={100}
-          
         />
         <Typography
           style={{
@@ -43,8 +67,9 @@ const ServerStatistic = () => {
             transform: "translateX(-50%)",
           }}
         >
-          Classic 50/100
+          Classic {online?.online.length}/100
         </Typography>
+        {onlineComponent()}
       </Box>
     </Box>
   );
