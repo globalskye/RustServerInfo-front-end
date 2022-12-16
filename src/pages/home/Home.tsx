@@ -23,9 +23,9 @@ const Home = () => {
   return (
     //0b0d12
     <>
+      <ResponsiveAppBar></ResponsiveAppBar>
       <Grid>
         <Box sx={{ flexGrow: 1 }}>
-          <ResponsiveAppBar></ResponsiveAppBar>
           <Container maxWidth="xl">
             <Grid container style={gridContainer}>
               <Grid item xs={3}>
