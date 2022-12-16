@@ -38,7 +38,6 @@ const ServerStatistic = () => {
     <Box
       bgcolor="#F5F5DC"
       sx={{
-        height: 200,
         borderRadius: '10px',
         paddingRight: '12px',
         paddingLeft: '12px'
