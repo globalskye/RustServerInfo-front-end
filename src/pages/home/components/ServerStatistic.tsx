@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
-import { Chip, Typography } from '@mui/material';
+import { Chip, Typography } from "@mui/material";
 
-import { LinearProgress } from '@mui/material';
-import { getOnline } from '../../../service';
-import { Online } from '../../../types';
+import { LinearProgress } from "@mui/material";
+import { getOnline } from "../../../service";
+import { Online, User } from "../../../types/user";
 
 const ServerStatistic = () => {
   const [online, setOnline] = useState<Online>();
@@ -21,14 +21,20 @@ const ServerStatistic = () => {
     );
   }, []);
   const OnlineComponent = () => {
-    const handleRedirect = (name: string) => {
-      window.location.href = `/profile/${name}`;
+    const handleRedirect = (steamId: number) => {
+      window.location.href = `/profile/${steamId}`;
     };
 
     return (
       <>
-        {online?.online.map((item: string) => (
-          <Chip key={item} label={item} onClick={() => handleRedirect(item)} clickable />
+        {online?.users?.map((item: User) => (
+          <Chip
+            key={item.name}
+            sx={{ borderRadius: "2px", margin: "2px" }}
+            label={item.name}
+            onClick={() => handleRedirect(item.steamId)}
+            clickable
+          />
         ))}
       </>
     );
@@ -38,33 +44,36 @@ const ServerStatistic = () => {
     <Box
       bgcolor="#F5F5DC"
       sx={{
-        borderRadius: '10px',
-        paddingRight: '12px',
-        paddingLeft: '12px'
-      }}>
+        borderRadius: "10px",
+        paddingRight: "12px",
+        paddingLeft: "12px",
+      }}
+    >
       <Typography variant="h4" textAlign="center">
         Statistics
       </Typography>
       <Box
         sx={{
-          margin: '5px',
-          position: 'relative'
-        }}>
+          margin: "5px",
+          position: "relative",
+        }}
+      >
         <LinearProgress
-          sx={{ height: '30px' }}
+          sx={{ height: "30px" }}
           variant="buffer"
-          value={online?.online.length || 0}
+          value={online?.users?.length || 0}
           valueBuffer={100}
         />
         <Typography
           style={{
-            position: 'absolute',
-            color: 'white',
+            position: "absolute",
+            color: "white",
             top: 0,
-            left: '50%',
-            transform: 'translateX(-50%)'
-          }}>
-          Classic {online?.online.length}/100
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          Classic {online?.users?.length}/100
         </Typography>
         <OnlineComponent />
       </Box>

@@ -5,7 +5,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 
 const ResponsiveAppBar = () => {
   return (
-    <AppBar position="static" style={{ backgroundColor: '#F5F5DC' }}>
+    <AppBar position="static" style={{ backgroundColor: '#0b0d12' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: '#F5F5DC' }} />

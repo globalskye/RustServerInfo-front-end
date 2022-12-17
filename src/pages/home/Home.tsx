@@ -7,7 +7,7 @@ import TopClans from './components/TopClans';
 import TopPvP from './components/TopPvP';
 import VkPage from './components/VkNews';
 import InfoButtons from './components/InfoButtons';
-import TopFarm from './components/TopFarm';
+import TopFarm from './components/TopRaid';
 
 const gridItem = {
   paddingRight: '12px',
