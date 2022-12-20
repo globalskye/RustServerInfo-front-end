@@ -1,3 +1,2 @@
-
-export * from './clan'
 export * from './user'
+export * from './vk'

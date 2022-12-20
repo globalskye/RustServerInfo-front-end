@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
-import { Chip, Typography } from '@mui/material';
-import { User } from '../../../types';
-import { getTopKillers } from '../../../service';
-
-
+import { Chip, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { User } from "../../../types";
+import { getTopKillers } from "../../../service";
+import { useNavigate } from "react-router-dom";
 
 const TopPvP = () => {
-  const [killers, setKillers ] = useState<User[]>();
+  const navigate = useNavigate();
+  const [killers, setKillers] = useState<User[]>();
   useEffect(() => {
     getTopKillers().then(
       (response) => {
@@ -20,30 +20,57 @@ const TopPvP = () => {
       }
     );
   }, []);
-  const pvpComponent = () => {
+  const PvpComponent = () => {
     const handleRedirect = (name: string) => {
-      window.location.href = `/profile/${name}`;
+      navigate(`/users/${name}`);
     };
 
     return (
       <>
         {killers?.map((item: User) => (
-          <Chip key={item._id} sx={{borderRadius:"2px", margin:"2px"}} label={item.name} onClick={() => handleRedirect(item.name)} clickable />
+          <ListItem
+          button
+          sx={{bgcolor:"#67DAD4",borderRadius: "2px", marginTop: "2px" }}
+          onClick={() => handleRedirect(item.name)}
+        >
+          <ListItemText  style={{justifyContent:'left'}} >
+            {item.name}
+          </ListItemText>
+          <ListItemText  style={{justifyContent:'right', textAlign:'right'}} >
+            {item.killedPlayers}
+          </ListItemText>
+        </ListItem>
         ))}
       </>
     );
   };
   return (
     <Box
-      bgcolor="#F5F5DC"
+      bgcolor="#60EFE7"
       sx={{
-        marginTop: '15px',
-        borderRadius: '10px'
-      }}>
-      <Typography variant="h4" textAlign="center">
+        fontWeight: "bold",
+        borderRadius: "10px",
+        paddingRight: "12px",
+        paddingLeft: "12px",
+      }}
+    >
+      <Box
+        sx={{
+          margin: "5px",
+          position: "relative",
+        }}
+      >
+        <Typography
+          variant="h5"
+          textAlign="center"
+          style={{ fontWeight: 1000 }}
+        >
         Топ 10 убийц
       </Typography>
-      {pvpComponent()}
+      <List>
+      <PvpComponent />
+      </List>
+      </Box>
     </Box>
   );
 };

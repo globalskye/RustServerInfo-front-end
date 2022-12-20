@@ -13,3 +13,6 @@ export const getTopKillers = () => {
 export const getTopRaiders = () => {
     return axios.get(API_URL + 'topRaiders');
 };
+export const getVkNews = () => {
+    return axios.get(API_URL+'vk')
+}

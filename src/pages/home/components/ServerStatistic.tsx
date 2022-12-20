@@ -7,8 +7,11 @@ import { Chip, Typography } from "@mui/material";
 import { LinearProgress } from "@mui/material";
 import { getOnline } from "../../../service";
 import { Online, User } from "../../../types/user";
+import { useNavigate } from "react-router-dom";
+import { isTemplateLiteral } from "typescript";
 
 const ServerStatistic = () => {
+  const navigate = useNavigate();
   const [online, setOnline] = useState<Online>();
   useEffect(() => {
     getOnline().then(
@@ -21,18 +24,18 @@ const ServerStatistic = () => {
     );
   }, []);
   const OnlineComponent = () => {
-    const handleRedirect = (steamId: number) => {
-      window.location.href = `/profile/${steamId}`;
+    const handleRedirect = (name: string) => {
+      navigate(`/users/${name}`);
     };
 
     return (
       <>
-        {online?.users?.map((item: User) => (
+        {online?.users?.map((item: string) => (
           <Chip
-            key={item.name}
+            key={item}
             sx={{ borderRadius: "2px", margin: "2px" }}
-            label={item.name}
-            onClick={() => handleRedirect(item.steamId)}
+            label={item}
+            onClick={() => handleRedirect(item)}
             clickable
           />
         ))}
@@ -42,15 +45,16 @@ const ServerStatistic = () => {
 
   return (
     <Box
-      bgcolor="#F5F5DC"
+      bgcolor="#60EFE7"
       sx={{
+        fontWeight: "bold",
         borderRadius: "10px",
         paddingRight: "12px",
         paddingLeft: "12px",
       }}
     >
-      <Typography variant="h4" textAlign="center">
-        Statistics
+      <Typography variant="h5" textAlign="center" style={{ fontWeight: 1000 }}>
+        Статистика
       </Typography>
       <Box
         sx={{
@@ -64,10 +68,11 @@ const ServerStatistic = () => {
           value={online?.users?.length || 0}
           valueBuffer={100}
         />
+
         <Typography
           style={{
             position: "absolute",
-            color: "white",
+            color: "black",
             top: 0,
             left: "50%",
             transform: "translateX(-50%)",

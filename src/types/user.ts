@@ -35,7 +35,20 @@ export interface User {
   export interface Online {
     _id: string;
     count: number;
-    users?: (User)[] | null;
+    users?: (string)[] | null;
   }
  
-  
+  export interface Clan {
+    _id: string;
+    name: string;
+    abbr: string;
+    leaderSteamId: number;
+    leader: User;
+    created: string;
+    balance: number;
+    tax: number;
+    level: number;
+    experience: number;
+    membersSteamIds?: (number)[] | null;
+    members?: (User)[] | null;
+  }

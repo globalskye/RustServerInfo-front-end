@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
-import { Chip, Typography } from '@mui/material';
-import { User } from '../../../types';
+import { Chip, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { User } from "../../../types";
 
-
-
-import { getTopRaiders } from '../../../service';
+import { getTopRaiders } from "../../../service";
+import { useNavigate } from "react-router-dom";
 
 const TopFarm = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>();
   useEffect(() => {
     getTopRaiders().then(
@@ -23,35 +23,55 @@ const TopFarm = () => {
   }, []);
   const RaidersComponent = () => {
     const handleRedirect = (name: string) => {
-      window.location.href = `/profile/${name}`;
+      navigate(`/users/${name}`);
     };
 
     return (
       <>
         {users?.map((item: User) => (
-          <Chip
-            key={item._id}
-            sx={{ borderRadius: "2px", margin: "2px" }}
-            label={item.name}
-            
+          <ListItem
+            button
+            sx={{bgcolor:"#67DAD4", borderRadius: "2px", marginTop: "2px" }}
             onClick={() => handleRedirect(item.name)}
-            clickable
-          />
+          >
+            <ListItemText  style={{justifyContent:'left'}} >
+              {item.name}
+            </ListItemText>
+            <ListItemText  style={{justifyContent:'right', textAlign:'right'}} >
+              {item.raid}
+            </ListItemText>
+          </ListItem>
         ))}
       </>
     );
   };
   return (
     <Box
-      bgcolor="#F5F5DC"
+      bgcolor="#60EFE7"
       sx={{
-        marginTop: '15px',
-        borderRadius: '10px'
-      }}>
-      <Typography variant="h4" textAlign="center">
-        Топ 10 рейдеров
-      </Typography>
-      {RaidersComponent()}
+        fontWeight: "bold",
+        borderRadius: "10px",
+        paddingRight: "12px",
+        paddingLeft: "12px",
+      }}
+    >
+      <Box
+        sx={{
+          margin: "5px",
+          position: "relative",
+        }}
+      >
+        <Typography
+          variant="h5"
+          textAlign="center"
+          style={{ fontWeight: 1000 }}
+        >
+          Топ 10 рейдеров
+        </Typography>
+        <List>
+        <RaidersComponent/>
+        </List>
+      </Box>
     </Box>
   );
 };

@@ -1,11 +1,20 @@
 import Box from "@mui/material/Box";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { Chip, Typography } from "@mui/material";
+import {
+  Chip,
+  Typography,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import { Clan } from "../../../types";
 import { getTopClans } from "../../../service";
+import { useNavigate } from "react-router-dom";
 
 const TopClans = () => {
+  const navigate = useNavigate();
   const [clans, setClans] = useState<Clan[]>();
   useEffect(() => {
     getTopClans().then(
@@ -19,36 +28,55 @@ const TopClans = () => {
   }, []);
   const ClanComponent = () => {
     const handleRedirect = (name: string) => {
-      window.location.href = `/clan/${name}`;
+      navigate(`/clans/${name}`);
     };
 
     return (
       <>
         {clans?.map((item: Clan) => (
-          <Chip
-            key={item._id}
-            sx={{ borderRadius: "2px", margin: "2px" }}
-            label={item.name}
-            
-            onClick={() => handleRedirect(item.name)}
-            clickable
-          />
+          <ListItem
+          button
+          sx={{bgcolor:"#67DAD4",  borderRadius: "2px", marginTop: "2px" }}
+          onClick={() => handleRedirect(item.name)}
+        >
+          <ListItemText  style={{justifyContent:'left'}} >
+            {item.name}
+          </ListItemText>
+          <ListItemText  style={{justifyContent:'right', textAlign:'right'}} >
+            {item.level}
+          </ListItemText>
+        </ListItem>
         ))}
       </>
     );
   };
   return (
     <Box
-      bgcolor="#F5F5DC"
+      bgcolor="#60EFE7"
       sx={{
-        marginTop: "15px",
+        fontWeight: "bold",
         borderRadius: "10px",
+        paddingRight: "12px",
+        paddingLeft: "12px",
       }}
     >
-      <Typography variant="h4" textAlign="center">
-        Топ 10 кланов
-      </Typography>
-      {ClanComponent()}
+      <Box
+        sx={{
+          margin: "5px",
+          position: "relative",
+        }}
+      >
+        <Typography
+          variant="h5"
+          textAlign="center"
+          style={{ fontWeight: 1000 }}
+        >
+          Топ 10 кланов
+        </Typography>
+        <List>
+          <ClanComponent />
+        </List>
+      </Box>
     </Box>
   );
 };
