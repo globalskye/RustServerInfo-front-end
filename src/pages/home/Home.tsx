@@ -1,22 +1,22 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import ResponsiveAppBar from './components/Navbar';
-import { Container } from '@mui/material';
-import ServerStatistic from './components/ServerStatistic';
-import TopClans from './components/TopClans';
-import TopPvP from './components/TopPvP';
-import VkPage from './components/VkNews';
-import InfoButtons from './components/InfoButtons';
-import TopFarm from './components/TopRaid';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import ResponsiveAppBar from "./components/Navbar";
+import { Container } from "@mui/material";
+import ServerStatistic from "./components/ServerStatistic";
+import TopClans from "./components/TopClans";
+import TopPvP from "./components/TopPvP";
+import VkPage from "./components/VkNews";
+import InfoButtons from "./components/InfoButtons";
+import TopFarm from "./components/TopRaid";
 
 const gridItem = {
-  paddingRight: '12px',
-  paddingLeft: '12px'
+  paddingRight: "12px",
+  paddingLeft: "12px",
 };
 
 const gridContainer = {
-  paddingTop: '24px',
-  paddingBottom: '24px'
+  paddingTop: "24px",
+  paddingBottom: "24px",
 };
 
 const Home = () => {
@@ -28,7 +28,7 @@ const Home = () => {
         <Box sx={{ flexGrow: 1 }}>
           <Container maxWidth="xl">
             <Grid container style={gridContainer}>
-              <Grid item xs={3}>
+              <Grid item xs={3} style={gridItem}>
                 <Grid item xs={12}>
                   <ServerStatistic />
                 </Grid>

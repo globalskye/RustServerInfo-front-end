@@ -1,26 +1,10 @@
-import ResponsiveAppBar from "../home/components/Navbar";
-import {
-  Grid,
-  Paper,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  Typography,
-  Table,
-  Box,
-  Stack,
-  Container,
-  Button,
-} from "@mui/material";
-import TableRow from "@mui/material/TableRow";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import DataTable, { ExpanderComponentProps } from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../service";
 import { User } from "../../types";
-import TopPvP from "../home/components/TopPvP";
-import ServerStatistic from "../home/components/ServerStatistic";
-import InfoButtons from "../home/components/InfoButtons";
+import ResponsiveAppBar from "../home/components/Navbar";
 
 const gridItem = {
   paddingRight: "12px",
@@ -32,9 +16,36 @@ const gridContainer = {
   paddingBottom: "24px",
 };
 
+const tableCustomStyles = {
+  rows: {
+    style: {
+      minHeight: "72px", // override the row height
+      "&:hover": {
+        cursor: "pointer",
+        backgroundColor: "#60EFE7",
+      },
+    },
+  },
+  headCells: {
+    style: {
+      fontSize: "16px",
+      fontWeight: "bold",
+      borderRadius: "20px",
+      justifyContent: "left",
+      innerHeight: "20px",
+      marginBottom: "20px",
+      marginTop: "20px",
+    },
+  },
+  cells: {
+    style: {
+      fontSize: "15px",
+    },
+  },
+};
+
 const UsersList = () => {
   const navigate = useNavigate();
-  const [clickedItem, setClickedItem] = useState<User>();
   const [users, setUsers] = useState<User[]>();
   useEffect(() => {
     getUsers().then(
@@ -49,49 +60,91 @@ const UsersList = () => {
   const handleRedirect = (name: string) => {
     navigate(`/users/${name}`);
   };
+  const UserTableComponent2 = () => {
+    const kd = (kill: number, deaths: number) => {
+      if (deaths === 0) {
+        return kill;
+      }
+      if (kill === 0) {
+        return 0;
+      }
+      return (kill / deaths).toFixed(2);
+    };
 
-  const UserTableComponent = () => {
-    return (
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Никнейм</TableCell>
-              <TableCell align="right">Убийства</TableCell>
-              <TableCell align="right">КД</TableCell>
-              <TableCell align="right">Баланс</TableCell>
-              <TableCell align="right">Убито животных</TableCell>
-              <TableCell align="right">Убито мутантов</TableCell>
-              <TableCell align="right">Зарейжено объектов</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users?.map((item: User) => (
-              <TableRow hover={true} key={item.name} >
-                <TableCell scope="row">
-                  <Button
-                    variant="text"
-                    onClick={() => handleRedirect(item.name)}
-                  >
-                    {item.name}
-                  </Button>
-                </TableCell>
-
-                <TableCell align="center">{item.killedPlayers}</TableCell>
-                <TableCell align="center">
-                  {(item.killedPlayers / item.deaths).toFixed(2)}
-                </TableCell>
-                <TableCell align="center">{item.balance}</TableCell>
-                <TableCell align="center">{item.killedAnimals}</TableCell>
-                <TableCell align="center">{item.killedMutants}</TableCell>
-                <TableCell align="center">{item.raid}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
+    const columns = [
+      {
+        name: "Никнейм",
+        selector: (users: User) => users.name,
+        cell: (users: User) => nameButton(users.name),
+      },
+      {
+        name: "Убийства",
+        selector: (users: User) => users.killedPlayers,
+        sortable: true,
+      },
+      {
+        name: "КД",
+        selector: (users: User) => kd(users.killedPlayers, users.deaths),
+        sortable: true,
+      },
+      {
+        name: "Баланс",
+        selector: (users: User) => users.balance,
+        sortable: true,
+      },
+      {
+        name: "Убито животных",
+        selector: (users: User) => users.killedAnimals,
+        sortable: true,
+      },
+      {
+        name: "Убито мутантов",
+        selector: (users: User) => users.killedMutants,
+        sortable: true,
+      },
+    ];
+    const ExpandedComponent: React.FC<ExpanderComponentProps<User>> = ({
+      data,
+    }) => {
+      return <pre>НЕ ДОДЕЛАНО!</pre>;
+    };
+    const nameButton = (name: string) => {
+      return (
+        <>
+          <Button
+            sx={{
+              textTransform: "none",
+              textAlign: "left",
+              fontWeight: "bold",
+              fontSize: "15px",
+              color: "blue",
+            }}
+            onClick={() => {
+              handleRedirect(name);
+            }}
+          >
+            {name}
+          </Button>
+        </>
+      );
+    };
+    if (users) {
+      return (
+        <DataTable
+          columns={columns}
+          data={users}
+          expandableRows={true}
+          defaultSortFieldId={2}
+          defaultSortAsc={false}
+          expandableRowsComponent={ExpandedComponent}
+          pagination
+          customStyles={tableCustomStyles}
+        />
+      );
+    }
+    return <>Users not found</>;
   };
+
   return (
     <>
       <ResponsiveAppBar></ResponsiveAppBar>
@@ -101,7 +154,17 @@ const UsersList = () => {
             <Grid container style={gridContainer}>
               <Grid item xs={1}></Grid>
               <Grid item xs={9} style={gridItem}>
-                <UserTableComponent />
+                <Box
+                  textAlign={"center"}
+                  bgcolor="white"
+                  sx={{
+                    borderTopLeftRadius: "20px",
+                    borderTopRightRadius: "20px",
+                  }}
+                >
+                  <Typography fontSize={"40px"}></Typography>
+                  <UserTableComponent2 />
+                </Box>
               </Grid>
               <Grid item xs style={gridItem}></Grid>
             </Grid>

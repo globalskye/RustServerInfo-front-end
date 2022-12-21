@@ -7,6 +7,9 @@ import {
   Card,
   CardActions,
   CardContent,
+  List,
+  ListItem,
+  ListItemButton,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -25,6 +28,35 @@ const VkPage = () => {
       }
     );
   }, []);
+  const VkNewsList = () => {
+    return (
+      <>
+        {vk?.response.items?.map((item: ItemsEntity) => (
+          <>
+            <ListItemButton
+              key={item.id}
+              LinkComponent="a"
+              sx={{
+                bgcolor: "white",
+                marginBottom: "20px",
+                borderRadius: "10px",
+              }}
+              href={
+                "https://vk.com/rustdark12?w=wall" +
+                item.owner_id +
+                "_" +
+                item.id
+              }
+            >
+              <Typography sx={{ whiteSpace: "pre-wrap" }}>
+                {item.text}
+              </Typography>
+            </ListItemButton>
+          </>
+        ))}
+      </>
+    );
+  };
 
   const VkComponent = () => {
     return (
@@ -32,6 +64,7 @@ const VkPage = () => {
         {vk?.response.items?.map((item: ItemsEntity) => (
           <>
             <Card
+              key={item.id}
               sx={{
                 maxWidth: "100%",
                 marginBottom: "20px",
@@ -76,7 +109,9 @@ const VkPage = () => {
       <Typography variant="h5" textAlign="center" style={{ fontWeight: 1000 }}>
         Новости
       </Typography>
-      <VkComponent />
+      <List sx={{}}>
+        <VkNewsList />
+      </List>
     </Box>
   );
 };

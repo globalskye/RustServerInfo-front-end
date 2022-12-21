@@ -5,8 +5,8 @@ export interface User {
     name: string;
     hwid: string;
     rank: number;
-    firstConnectTime: string;
-    lastConnectTime: string;
+    firstConnectTime: Date;
+    lastConnectTime: Date;
     balance: number;
     killedPlayers: number;
     killedMutants: number;

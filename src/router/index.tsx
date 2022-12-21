@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import ClanList from "../pages/clans/ClanList";
 import ConcreteClan from "../pages/clans/ConcretClan";
+import RulesComponent from "../pages/home/components/Rules";
 import Home from "../pages/home/Home";
 import ConcreteUser from "../pages/users/ConcretUser";
 import UsersList from "../pages/users/UsersList";
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     path: "/clans/:name",
     element: <ConcreteClan />,
   },
+  {
+    path:"/rules",
+    element: <RulesComponent />,
+  }
 ]);
 
 export default router;

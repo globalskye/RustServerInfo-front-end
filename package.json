@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "@mui/material-next": "^6.0.0-alpha.65",
+    "@mui/x-data-grid": "^5.17.16",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -16,7 +17,10 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "axios": "^1.2.1",
+    "i": "^0.3.7",
+    "npm": "^9.2.0",
     "react": "^18.2.0",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
@@ -46,5 +50,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.26",
+    "styled-components": "^5.3.6"
   }
 }

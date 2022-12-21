@@ -30,6 +30,7 @@ const TopFarm = () => {
       <>
         {users?.map((item: User) => (
           <ListItem
+          key={item.name}
             button
             sx={{bgcolor:"#67DAD4", borderRadius: "2px", marginTop: "2px" }}
             onClick={() => handleRedirect(item.name)}

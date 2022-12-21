@@ -33,7 +33,7 @@ const ServerStatistic = () => {
         {online?.users?.map((item: string) => (
           <Chip
             key={item}
-            sx={{ borderRadius: "2px", margin: "2px" }}
+            sx={{ borderRadius: "5px", margin: "2px" }}
             label={item}
             onClick={() => handleRedirect(item)}
             clickable
@@ -46,6 +46,7 @@ const ServerStatistic = () => {
   return (
     <Box
       bgcolor="#60EFE7"
+      
       sx={{
         fontWeight: "bold",
         borderRadius: "10px",
@@ -58,7 +59,7 @@ const ServerStatistic = () => {
       </Typography>
       <Box
         sx={{
-          margin: "5px",
+         
           position: "relative",
         }}
       >
@@ -80,7 +81,11 @@ const ServerStatistic = () => {
         >
           Classic {online?.users?.length}/100
         </Typography>
+        <Box sx={{marginTop:"5px", marginBottom:"20px"}}>
         <OnlineComponent />
+        </Box>
+       
+        
       </Box>
     </Box>
   );

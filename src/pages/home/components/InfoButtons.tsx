@@ -2,8 +2,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const InfoButtons = () => {
+  const navigate = useNavigate();
+
   const handleRedirect = (name: string) => {
     window.location.href = `name`;
   };
@@ -17,29 +20,59 @@ const InfoButtons = () => {
         paddingLeft: "12px",
       }}
     >
-      <Typography variant="h5" textAlign="center" style={{ fontWeight: 1000 }}>
-        Информация
-      </Typography>
       <Box>
-        <Button variant="outlined" sx={{ width: "100%", height: "40px" }}>
+        <Button
+          variant="text"
+          sx={{
+            width: "100%",
+            height: "40px",
+            marginTop: "4px",
+            fontSize: "20px",
+            color: "blue",
+            fontWeight: "bold",
+          }}
+          href="https://hostfun.ru/RustLegacy_Setup.exe"
+        >
           Скачать клиент
         </Button>
         <Button
-          variant="outlined"
-          sx={{ width: "100%", height: "40px", marginTop: "4px" }}
+          variant="text"
+          sx={{
+            width: "100%",
+            height: "40px",
+            marginTop: "4px",
+            fontSize: "20px",
+            color: "blue",
+            fontWeight: "bold",
+          }}
+          onClick={()=>navigate("/rules")}
         >
           ПРАВИЛА
         </Button>
         <Button
-          variant="outlined"
-          sx={{ width: "100%", height: "40px", marginTop: "4px" }}
+          variant="text"
+          sx={{
+            width: "100%",
+            height: "40px",
+            marginTop: "4px",
+            fontSize: "20px",
+            color: "blue",
+            fontWeight: "bold",
+          }}
           href="https://vk.com/rustdark12"
         >
           VK
         </Button>
         <Button
-          variant="outlined"
-          sx={{ width: "100%", height: "40px", marginTop: "4px" }}
+          variant="text"
+          sx={{
+            width: "100%",
+            height: "40px",
+            marginTop: "4px",
+            fontSize: "20px",
+            color: "blue",
+            fontWeight: "bold",
+          }}
           href="https://discord.gg/anvrEnVcj9"
         >
           DISCORD
