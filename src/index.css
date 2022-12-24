@@ -7,6 +7,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: #00030c;
     height: 100%;
+    scrollbar-base-color: #00030c;
+    scrollbar-color: #00030c;
   }
   
   code {
