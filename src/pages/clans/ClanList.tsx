@@ -20,7 +20,7 @@ const gridContainer = {
 const tableCustomStyles = {
   rows: {
     style: {
-      minHeight: "72px", // override the row height
+      minHeight: "60px", // override the row height
       "&:hover": {
         cursor: "pointer",
         backgroundColor: "#60EFE7",
@@ -29,10 +29,9 @@ const tableCustomStyles = {
   },
   headCells: {
     style: {
-      fontSize: "16px",
+      fontSize: "18px",
       fontWeight: "bold",
       borderRadius: "20px",
-      justifyContent: "left",
       innerHeight: "20px",
       marginBottom: "20px",
       marginTop: "20px",
@@ -40,7 +39,7 @@ const tableCustomStyles = {
   },
   cells: {
     style: {
-      fontSize: "15px",
+      fontSize: "25px",
     },
   },
 };
@@ -69,29 +68,33 @@ const UsersList = () => {
         name: "Клан",
         selector: (clan: Clan) => clan.name,
         cell: (clan: Clan) => nameButton(clan.name),
+        center: true,
       },
     
       {
         name: "Аббревиатура",
         selector: (clan: Clan) => clan.abbr,
-        sortable:true
-        
+        sortable:true,
+        center: true,
       },
       
       {
         name: "Уровень",
         selector: (clan: Clan) => clan.level,
-        sortable:true
+        sortable:true,
+        center: true,
       },
       {
         name: "Баланс",
         selector: (clan: Clan) => clan.balance,
-        sortable:true
+        sortable:true,
+        center: true,
       },
       {
         name: "Опыт",
         selector: (clan: Clan) => clan.experience,
-        sortable:true
+        sortable:true,
+        center: true,
       },
       
     ];
@@ -104,13 +107,11 @@ const UsersList = () => {
       return (
         <>
           <Button
-            sx={{
-              textTransform: "none",
-              textAlign: "left",
-              fontWeight: "bold",
-              fontSize: "15px",
-              color: "blue",
-            }}
+           sx={{
+            fontWeight: "bold",
+            fontSize: "15px",
+            color: "blue",
+          }}
             onClick={() => {
               handleRedirect(name);
             }}
@@ -126,7 +127,7 @@ const UsersList = () => {
           columns={columns}
           data={clans}
           expandableRows={true}
-          defaultSortFieldId={2}
+          defaultSortFieldId={3}
           defaultSortAsc={false}
           expandableRowsComponent={ExpandedComponent}
           pagination
@@ -134,7 +135,7 @@ const UsersList = () => {
         />
       );
     }
-    return <>Users not found</>;
+    return <>Clans not found</>;
   };
 
   return (

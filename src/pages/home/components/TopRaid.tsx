@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 
-import { Chip, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Chip, CircularProgress, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { User } from "../../../types";
 
 import { getTopRaiders } from "../../../service";
@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 const TopFarm = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] =useState<Boolean>(true)
   const [users, setUsers] = useState<User[]>();
   useEffect(() => {
     getTopRaiders().then(
       (response) => {
+        setLoading(false)
         setUsers(response.data);
       },
       (error) => {
@@ -70,7 +72,8 @@ const TopFarm = () => {
           Топ 10 рейдеров
         </Typography>
         <List>
-        <RaidersComponent/>
+        
+        {loading ? <CircularProgress />:<RaidersComponent/>}
         </List>
       </Box>
     </Box>

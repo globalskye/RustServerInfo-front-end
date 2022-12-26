@@ -1,4 +1,12 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { minWidth } from "@mui/system";
 import { useEffect, useState } from "react";
 import DataTable, { ExpanderComponentProps } from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +27,7 @@ const gridContainer = {
 const tableCustomStyles = {
   rows: {
     style: {
-      minHeight: "72px", // override the row height
+      minHeight: "60px", // override the row height
       "&:hover": {
         cursor: "pointer",
         backgroundColor: "#60EFE7",
@@ -28,10 +36,9 @@ const tableCustomStyles = {
   },
   headCells: {
     style: {
-      fontSize: "16px",
+      fontSize: "18px",
       fontWeight: "bold",
       borderRadius: "20px",
-      justifyContent: "left",
       innerHeight: "20px",
       marginBottom: "20px",
       marginTop: "20px",
@@ -39,18 +46,20 @@ const tableCustomStyles = {
   },
   cells: {
     style: {
-      fontSize: "15px",
+      fontSize: "25px",
     },
   },
 };
 
 const UsersList = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<Boolean>(true);
   const [users, setUsers] = useState<User[]>();
   useEffect(() => {
     getUsers().then(
       (response) => {
         setUsers(response.data);
+        setLoading(false);
       },
       (error) => {
         console.log(error);
@@ -76,31 +85,39 @@ const UsersList = () => {
         name: "Никнейм",
         selector: (users: User) => users.name,
         cell: (users: User) => nameButton(users.name),
+        center: true,
+        button: true,
+        minWidth: "180px",
       },
       {
         name: "Убийства",
         selector: (users: User) => users.killedPlayers,
         sortable: true,
+        center: true,
       },
       {
         name: "КД",
         selector: (users: User) => kd(users.killedPlayers, users.deaths),
         sortable: true,
+        center: true,
       },
       {
         name: "Баланс",
         selector: (users: User) => users.balance,
         sortable: true,
+        center: true,
       },
       {
-        name: "Убито животных",
+        name: <div>Убито животных</div>,
         selector: (users: User) => users.killedAnimals,
         sortable: true,
+        center: true,
       },
       {
-        name: "Убито мутантов",
+        name: <div>Убито мутантов</div>,
         selector: (users: User) => users.killedMutants,
         sortable: true,
+        center: true,
       },
     ];
     const ExpandedComponent: React.FC<ExpanderComponentProps<User>> = ({
@@ -113,8 +130,6 @@ const UsersList = () => {
         <>
           <Button
             sx={{
-              textTransform: "none",
-              textAlign: "left",
               fontWeight: "bold",
               fontSize: "15px",
               color: "blue",
@@ -163,7 +178,8 @@ const UsersList = () => {
                   }}
                 >
                   <Typography fontSize={"40px"}></Typography>
-                  <UserTableComponent2 />
+
+                  {loading ? <CircularProgress /> : <UserTableComponent2 />}
                 </Box>
               </Grid>
               <Grid item xs style={gridItem}></Grid>

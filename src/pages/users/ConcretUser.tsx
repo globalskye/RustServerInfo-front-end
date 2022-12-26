@@ -31,18 +31,27 @@ const ConcreteUser = () => {
     const handleRedirect = (name: string) => {
       navigate(`/clans/${name}`);
     };
-
-    if (user) {
-      return (
-        <List>
-          <ListItem button>
-            <ListItemText primary="Клан:" style={{ justifyContent: "left" }} />
+    const ClanButton = () => {
+        if (user?.clanName){
+          return (
             <Chip
               label={user.clanName.toUpperCase()}
               sx={{ borderRadius: "5px", color: "blue" }}
               onClick={() => handleRedirect(user.clanName)}
               clickable
             />
+          )
+        }
+        return <Typography>Игрок не состоит в клане</Typography>
+    }
+
+    if (user) {
+      return (
+        <List>
+          <ListItem button>
+            <ListItemText primary="Клан:" style={{ justifyContent: "left" }} />
+            <ClanButton/>
+            
           </ListItem>
           <ListItem button>
             <ListItemText
@@ -87,7 +96,7 @@ const ConcreteUser = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={user.killedMutants}
+              primary={user.killedAnimals}
               style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
@@ -111,16 +120,7 @@ const ConcreteUser = () => {
               style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
-          <ListItem button>
-            <ListItemText
-              primary="Зарейжено объектов:"
-              style={{ justifyContent: "left" }}
-            />
-            <ListItemText
-              primary={user?.raid}
-              style={{ justifyContent: "right", textAlign: "right" }}
-            />
-          </ListItem>
+          
           <ListItemButton onClick={handleClick}>
             <ListItemText primary="Фарм" style={{ justifyContent: "left" }} />
             {open ? <ExpandLess /> : <ExpandMore />}

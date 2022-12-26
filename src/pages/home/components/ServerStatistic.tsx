@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 
 import { Chip, Typography } from "@mui/material";
-
+import CircularProgress from "@mui/material/CircularProgress";
 import { LinearProgress } from "@mui/material";
 import { getOnline } from "../../../service";
 import { Online, User } from "../../../types/user";
@@ -12,10 +12,12 @@ import { isTemplateLiteral } from "typescript";
 
 const ServerStatistic = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<Boolean>(true);
   const [online, setOnline] = useState<Online>();
   useEffect(() => {
     getOnline().then(
       (response) => {
+        setLoading(false);
         setOnline(response.data);
       },
       (error) => {
@@ -23,6 +25,7 @@ const ServerStatistic = () => {
       }
     );
   }, []);
+
   const OnlineComponent = () => {
     const handleRedirect = (name: string) => {
       navigate(`/users/${name}`);
@@ -46,7 +49,6 @@ const ServerStatistic = () => {
   return (
     <Box
       bgcolor="#60EFE7"
-      
       sx={{
         fontWeight: "bold",
         borderRadius: "10px",
@@ -59,7 +61,6 @@ const ServerStatistic = () => {
       </Typography>
       <Box
         sx={{
-         
           position: "relative",
         }}
       >
@@ -81,11 +82,9 @@ const ServerStatistic = () => {
         >
           Classic {online?.users?.length}/100
         </Typography>
-        <Box sx={{marginTop:"5px", marginBottom:"20px"}}>
-        <OnlineComponent />
+        <Box sx={{ marginTop: "5px", marginBottom: "20px" }}>
+          {loading ? <CircularProgress /> : <OnlineComponent />}
         </Box>
-       
-        
       </Box>
     </Box>
   );

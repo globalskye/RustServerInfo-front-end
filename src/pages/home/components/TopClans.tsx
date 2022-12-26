@@ -8,6 +8,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  CircularProgress,
 } from "@mui/material";
 import { Clan } from "../../../types";
 import { getTopClans } from "../../../service";
@@ -15,10 +16,12 @@ import { useNavigate } from "react-router-dom";
 
 const TopClans = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] =useState<Boolean>(true)
   const [clans, setClans] = useState<Clan[]>();
   useEffect(() => {
     getTopClans().then(
       (response) => {
+        setLoading(false)
         setClans(response.data);
       },
       (error) => {
@@ -35,7 +38,7 @@ const TopClans = () => {
       <>
         {clans?.map((item: Clan) => (
           <ListItem
-          
+          key={item._id}
           button
           sx={{bgcolor:"#67DAD4",  borderRadius: "2px", marginTop: "2px" }}
           onClick={() => handleRedirect(item.name)}
@@ -53,8 +56,10 @@ const TopClans = () => {
   };
   return (
     <Box
+    
       bgcolor="#60EFE7"
       sx={{
+        
         fontWeight: "bold",
         borderRadius: "10px",
         paddingRight: "12px",
@@ -75,7 +80,8 @@ const TopClans = () => {
           Топ 10 кланов
         </Typography>
         <List>
-          <ClanComponent />
+          
+          {loading ? <CircularProgress />:<ClanComponent />}
         </List>
       </Box>
     </Box>

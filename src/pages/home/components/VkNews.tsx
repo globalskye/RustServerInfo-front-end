@@ -7,6 +7,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress,
   createMuiTheme,
   createTheme,
   List,
@@ -59,10 +60,12 @@ const theme = createTheme({
 });
 
 const VkPage = () => {
+  const [loading, setLoading] =useState<Boolean>(true)
   const [vk, setVk] = useState<Vk>();
   useEffect(() => {
     getVkNews().then(
       (response) => {
+        setLoading(false)
         setVk(response.data);
       },
       (error) => {
@@ -126,7 +129,8 @@ const VkPage = () => {
        // justifyContent="flex-end" # DO NOT USE THIS WITH 'scroll'
        
       }}>
-        <VkNewsList />
+        
+        {loading ? <CircularProgress />:<VkNewsList/>}
       </List>
     </Box>
   );

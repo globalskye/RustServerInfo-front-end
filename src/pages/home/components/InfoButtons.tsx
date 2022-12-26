@@ -27,13 +27,12 @@ const InfoButtons = () => {
             width: "100%",
             height: "40px",
             marginTop: "4px",
-            fontSize: "20px",
+
             color: "blue",
-            fontWeight: "bold",
           }}
           href="https://hostfun.ru/RustLegacy_Setup.exe"
         >
-          Скачать клиент
+          <Typography variant="h5">СКАЧАТЬ КЛИЕНТ</Typography>
         </Button>
         <Button
           variant="text"
@@ -41,13 +40,13 @@ const InfoButtons = () => {
             width: "100%",
             height: "40px",
             marginTop: "4px",
-            fontSize: "20px",
+
             color: "blue",
-            fontWeight: "bold",
           }}
-          onClick={()=>navigate("/rules")}
+          onClick={() => navigate("/rules")}
         >
-          ПРАВИЛА
+          
+          <Typography variant="h5">ПРАВИЛА</Typography>
         </Button>
         <Button
           variant="text"
@@ -55,13 +54,24 @@ const InfoButtons = () => {
             width: "100%",
             height: "40px",
             marginTop: "4px",
-            fontSize: "20px",
             color: "blue",
-            fontWeight: "bold",
           }}
           href="https://vk.com/rustdark12"
         >
-          VK
+          <Typography variant="h5">ПОМОЩЬ СО ВХОДОМ</Typography>
+        </Button>
+        
+        <Button
+          variant="text"
+          sx={{
+            width: "100%",
+            height: "40px",
+            marginTop: "4px",
+            color: "blue",
+          }}
+          href="https://vk.com/rustdark12"
+        >
+          <Typography variant="h5">VK</Typography>
         </Button>
         <Button
           variant="text"
@@ -69,13 +79,11 @@ const InfoButtons = () => {
             width: "100%",
             height: "40px",
             marginTop: "4px",
-            fontSize: "20px",
             color: "blue",
-            fontWeight: "bold",
           }}
           href="https://discord.gg/anvrEnVcj9"
         >
-          DISCORD
+          <Typography variant="h5">DISCORD</Typography>
         </Button>
       </Box>
     </Box>
