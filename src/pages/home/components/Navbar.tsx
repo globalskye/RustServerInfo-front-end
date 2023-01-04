@@ -74,6 +74,36 @@ const ResponsiveAppBar = () => {
           >
             МАГАЗИН
           </Button>
+          <Button
+            variant="outlined"
+            style={{
+              height: "50px",
+              fontWeight: "bold",
+              fontSize:"30px",
+              marginRight: "20px",
+              marginLeft: "20px",
+            }}
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            ВХОД
+          </Button>
+          <Button
+            variant="outlined"
+            style={{
+              height: "50px",
+              fontWeight: "bold",
+              fontSize:"30px",
+              marginRight: "20px",
+              marginLeft: "20px",
+            }}
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            РЕГИСТРАЦИЯ
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>

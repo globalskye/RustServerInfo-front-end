@@ -7,6 +7,8 @@ import Home2 from "../pages/home/Home2";
 import RegisterForm from "../pages/Theme";
 import ConcretePlayer from "../pages/players/ConcretPlayer";
 import PlayersList from "../pages/players/PlayersList";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
   {
     path: "/clans/:name",
     element: <ConcreteClan />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
   {
     path: "/rules",

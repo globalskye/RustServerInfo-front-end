@@ -3,7 +3,7 @@ import { Button, Container, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { userRegister } from '../service/AuthService';
+import { userRegister } from "../../service/AuthService";
 
 interface IFormInput {
   email: string;
@@ -17,7 +17,7 @@ const schema = yup.object().shape({
   password: yup.string().required().min(8).max(120)
 });
 
-const Register: React.FC = () => {
+const Register = () => {
   const [message, setMessage] = useState<string>('');
 
   const {

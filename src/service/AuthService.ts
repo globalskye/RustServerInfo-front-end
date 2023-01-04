@@ -37,9 +37,3 @@ export const getCurrentUser = () => {
 };
 // export const getCurrentUserRole = () => {};
 
-export const AuthService = {
-  userRegister,
-  login,
-  logout,
-  getCurrentUser
-};
