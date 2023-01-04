@@ -1,10 +1,17 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import DataTable, { ExpanderComponentProps } from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
-import { getUsers } from "../../service";
+import { getPlayers } from "../../service";
 import { getClans } from "../../service/ClanService";
-import { Clan, User } from "../../types";
+import { Clan, Player } from "../../types";
 import ResponsiveAppBar from "../home/components/Navbar";
 
 const gridItem = {
@@ -44,13 +51,15 @@ const tableCustomStyles = {
   },
 };
 
-const UsersList = () => {
+const PlayersList = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<Boolean>(true);
   const [clans, setClans] = useState<Clan[]>();
   useEffect(() => {
     getClans().then(
       (response) => {
         setClans(response.data);
+        setLoading(false);
       },
       (error) => {
         console.log(error);
@@ -60,9 +69,7 @@ const UsersList = () => {
   const handleRedirect = (name: string) => {
     navigate(`/clans/${name}`);
   };
-  const UserTableComponent2 = () => {
-   
-
+  const ClanTableComponent = () => {
     const columns = [
       {
         name: "Клан",
@@ -70,33 +77,32 @@ const UsersList = () => {
         cell: (clan: Clan) => nameButton(clan.name),
         center: true,
       },
-    
+
       {
         name: "Аббревиатура",
         selector: (clan: Clan) => clan.abbr,
-        sortable:true,
+        sortable: true,
         center: true,
       },
-      
+
       {
         name: "Уровень",
         selector: (clan: Clan) => clan.level,
-        sortable:true,
+        sortable: true,
         center: true,
       },
       {
         name: "Баланс",
         selector: (clan: Clan) => clan.balance,
-        sortable:true,
+        sortable: true,
         center: true,
       },
       {
         name: "Опыт",
         selector: (clan: Clan) => clan.experience,
-        sortable:true,
+        sortable: true,
         center: true,
       },
-      
     ];
     const ExpandedComponent: React.FC<ExpanderComponentProps<Clan>> = ({
       data,
@@ -107,11 +113,11 @@ const UsersList = () => {
       return (
         <>
           <Button
-           sx={{
-            fontWeight: "bold",
-            fontSize: "15px",
-            color: "blue",
-          }}
+            sx={{
+              fontWeight: "bold",
+              fontSize: "15px",
+              color: "blue",
+            }}
             onClick={() => {
               handleRedirect(name);
             }}
@@ -140,31 +146,41 @@ const UsersList = () => {
 
   return (
     <>
-      <ResponsiveAppBar></ResponsiveAppBar>
-      <Grid>
-        <Box sx={{ flexGrow: 1 }}>
-          <Container maxWidth="xl">
-            <Grid container style={gridContainer}>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={9} style={gridItem}>
-                <Box
-                  textAlign={"center"}
-                  bgcolor="white"
-                  sx={{
-                    borderTopLeftRadius: "20px",
-                    borderTopRightRadius: "20px",
-                  }}
-                >
-                  <Typography fontSize={"40px"}></Typography>
-                  <UserTableComponent2 />
-                </Box>
+      <Grid
+        style={{
+          width: "1500px",
+          margin: "0 auto",
+          minHeight: "100%",
+          height: "auto !important",
+        }}
+      >
+        <ResponsiveAppBar></ResponsiveAppBar>
+        <Grid>
+          <Box sx={{ flexGrow: 1 }}>
+            <Container maxWidth="xl">
+              <Grid container style={gridContainer}>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={9} style={gridItem}>
+                  <Box
+                    textAlign={"center"}
+                    bgcolor="white"
+                    sx={{
+                      borderTopLeftRadius: "20px",
+                      borderTopRightRadius: "20px",
+                    }}
+                  >
+                    <Typography fontSize={"40px"}></Typography>
+                    
+                    {loading ? <CircularProgress /> : <ClanTableComponent />}
+                  </Box>
+                </Grid>
+                <Grid item xs style={gridItem}></Grid>
               </Grid>
-              <Grid item xs style={gridItem}></Grid>
-            </Grid>
-          </Container>
-        </Box>
+            </Container>
+          </Box>
+        </Grid>
       </Grid>
     </>
   );
 };
-export default UsersList;
+export default PlayersList;

@@ -1,10 +1,8 @@
+import { Button } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-import AdbIcon from "@mui/icons-material/Adb";
-import { Button, Menu, MenuItem, Typography, useMediaQuery } from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router-dom";
-import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 
 
 
@@ -58,7 +56,7 @@ const ResponsiveAppBar = () => {
               marginLeft: "20px",
             }}
             onClick={() => {
-              navigate("/users");
+              navigate("/Players");
             }}
           >
             ИГРОКИ

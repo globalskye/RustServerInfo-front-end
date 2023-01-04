@@ -10,8 +10,8 @@ import { minWidth } from "@mui/system";
 import { useEffect, useState } from "react";
 import DataTable, { ExpanderComponentProps } from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
-import { getUsers } from "../../service";
-import { User } from "../../types";
+import { getPlayers } from "../../service";
+import { Player } from "../../types";
 import ResponsiveAppBar from "../home/components/Navbar";
 
 const gridItem = {
@@ -51,14 +51,14 @@ const tableCustomStyles = {
   },
 };
 
-const UsersList = () => {
+const PlayersList = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<Boolean>(true);
-  const [users, setUsers] = useState<User[]>();
+  const [Players, setPlayers] = useState<Player[]>();
   useEffect(() => {
-    getUsers().then(
+    getPlayers().then(
       (response) => {
-        setUsers(response.data);
+        setPlayers(response.data);
         setLoading(false);
       },
       (error) => {
@@ -67,9 +67,9 @@ const UsersList = () => {
     );
   }, []);
   const handleRedirect = (name: string) => {
-    navigate(`/users/${name}`);
+    navigate(`/Players/${name}`);
   };
-  const UserTableComponent2 = () => {
+  const PlayerTableComponent2 = () => {
     const kd = (kill: number, deaths: number) => {
       if (deaths === 0) {
         return kill;
@@ -83,44 +83,45 @@ const UsersList = () => {
     const columns = [
       {
         name: "Никнейм",
-        selector: (users: User) => users.name,
-        cell: (users: User) => nameButton(users.name),
+        selector: (Players: Player) => Players.name,
+        cell: (Players: Player) => nameButton(Players.name),
         center: true,
         button: true,
         minWidth: "180px",
       },
       {
         name: "Убийства",
-        selector: (users: User) => users.killedPlayers,
+        selector: (Players: Player) => Players.killedPlayers,
         sortable: true,
         center: true,
       },
       {
         name: "КД",
-        selector: (users: User) => kd(users.killedPlayers, users.deaths),
+        selector: (Players: Player) => kd(Players.killedPlayers, Players.deaths),
         sortable: true,
         center: true,
       },
       {
         name: "Баланс",
-        selector: (users: User) => users.balance,
+        selector: (Players: Player) => Players.balance,
         sortable: true,
         center: true,
       },
       {
         name: <div>Убито животных</div>,
-        selector: (users: User) => users.killedAnimals,
+        selector: (Players: Player) => Players.killedAnimals,
         sortable: true,
         center: true,
+        
       },
       {
         name: <div>Убито мутантов</div>,
-        selector: (users: User) => users.killedMutants,
+        selector: (Players: Player) => Players.killedMutants,
         sortable: true,
         center: true,
       },
     ];
-    const ExpandedComponent: React.FC<ExpanderComponentProps<User>> = ({
+    const ExpandedComponent: React.FC<ExpanderComponentProps<Player>> = ({
       data,
     }) => {
       return <pre>НЕ ДОДЕЛАНО!</pre>;
@@ -143,25 +144,35 @@ const UsersList = () => {
         </>
       );
     };
-    if (users) {
+    if (Players) {
       return (
+        
         <DataTable
           columns={columns}
-          data={users}
+          data={Players}
           expandableRows={true}
           defaultSortFieldId={2}
           defaultSortAsc={false}
           expandableRowsComponent={ExpandedComponent}
           pagination
+          
           customStyles={tableCustomStyles}
         />
       );
     }
-    return <>Users not found</>;
+    return <>Players not found</>;
   };
 
   return (
     <>
+     <Grid
+        style={{
+          width: "1500px",
+          margin: "0 auto",
+          minHeight: "100%",
+          height: "auto !important",
+        }}
+      >
       <ResponsiveAppBar></ResponsiveAppBar>
       <Grid>
         <Box sx={{ flexGrow: 1 }}>
@@ -179,15 +190,16 @@ const UsersList = () => {
                 >
                   <Typography fontSize={"40px"}></Typography>
 
-                  {loading ? <CircularProgress /> : <UserTableComponent2 />}
+                  {loading ? <CircularProgress /> : <PlayerTableComponent2 />}
                 </Box>
               </Grid>
               <Grid item xs style={gridItem}></Grid>
             </Grid>
           </Container>
         </Box>
-      </Grid>
+      </Grid></Grid>
+      
     </>
   );
 };
-export default UsersList;
+export default PlayersList;

@@ -60,12 +60,12 @@ const theme = createTheme({
 });
 
 const VkPage = () => {
-  const [loading, setLoading] =useState<Boolean>(true)
+  const [loading, setLoading] = useState<Boolean>(true);
   const [vk, setVk] = useState<Vk>();
   useEffect(() => {
     getVkNews().then(
       (response) => {
-        setLoading(false)
+        setLoading(false);
         setVk(response.data);
       },
       (error) => {
@@ -77,29 +77,21 @@ const VkPage = () => {
     return (
       <>
         {vk?.response.items?.map((item: ItemsEntity) => (
-          
-            <ListItemButton
-              key={item.id}
-              LinkComponent="a"
-              sx={{
-                borderRadius:"10px",
-                marginBottom:"15px",
-                bgcolor: "white",
-                
-                
-              }}
-              href={
-                "https://vk.com/rustdark12?w=wall" +
-                item.owner_id +
-                "_" +
-                item.id
-              }
-            >
-              <Typography sx={{ whiteSpace: "pre-wrap" }}>
-                {item.text}
-              </Typography>
-            </ListItemButton>
-          
+          <ListItemButton
+            key={item.id}
+            LinkComponent="a"
+            sx={{
+              borderRadius: "10px",
+              marginBottom: "15px",
+              bgcolor: "white",
+            }}
+            href={
+              "https://vk.com/rustdark12?w=wall" + item.owner_id + "_" + item.id
+            }
+          >
+            <div></div>
+            <Typography sx={{ whiteSpace: "pre-wrap" }}>{item.text}</Typography>
+          </ListItemButton>
         ))}
       </>
     );
@@ -119,18 +111,18 @@ const VkPage = () => {
         Новости
       </Typography>
 
-      <List   sx={{
-        borderRadius: "10px",
-        display: "flex",
-        flexDirection: "column",
-        height: 1400,
-        overflow: "hidden",
-        overflowY: "scroll",
-       // justifyContent="flex-end" # DO NOT USE THIS WITH 'scroll'
-       
-      }}>
-        
-        {loading ? <CircularProgress />:<VkNewsList/>}
+      <List
+        sx={{
+          borderRadius: "10px",
+          display: "flex",
+          flexDirection: "column",
+          height: 1400,
+          overflow: "hidden",
+          overflowY: "scroll",
+          // justifyContent="flex-end" # DO NOT USE THIS WITH 'scroll'
+        }}
+      >
+        {loading ? <CircularProgress /> : <VkNewsList />}
       </List>
     </Box>
   );

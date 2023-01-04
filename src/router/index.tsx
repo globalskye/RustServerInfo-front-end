@@ -4,8 +4,9 @@ import ConcreteClan from "../pages/clans/ConcretClan";
 import RulesComponent from "../pages/home/components/Rules";
 import Home from "../pages/home/Home";
 import Home2 from "../pages/home/Home2";
-import ConcreteUser from "../pages/users/ConcretUser";
-import UsersList from "../pages/users/UsersList";
+import RegisterForm from "../pages/Theme";
+import ConcretePlayer from "../pages/players/ConcretPlayer";
+import PlayersList from "../pages/players/PlayersList";
 
 const router = createBrowserRouter([
   {
@@ -16,17 +17,14 @@ const router = createBrowserRouter([
     path: "/home2",
     element: <Home2 />,
   },
+
   {
-    path: "/users",
-    element: <UsersList />,
+    path: "/players",
+    element: <PlayersList />,
   },
   {
-    path: "/users",
-    element: <UsersList />,
-  },
-  {
-    path: "/users/:name",
-    element: <ConcreteUser />,
+    path: "/players/:name",
+    element: <ConcretePlayer />,
   },
   {
     path: "/clans",
@@ -37,9 +35,13 @@ const router = createBrowserRouter([
     element: <ConcreteClan />,
   },
   {
-    path:"/rules",
+    path: "/rules",
     element: <RulesComponent />,
-  }
+  },
+  {
+    path: "/sign-up",
+    element: <RegisterForm />,
+  },
 ]);
 
 export default router;

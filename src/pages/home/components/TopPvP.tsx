@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 
 import { Chip, CircularProgress, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
-import { User } from "../../../types";
+import { Player } from "../../../types";
 import { getTopKillers } from "../../../service";
 import { useNavigate } from "react-router-dom";
 
 const TopPvP = () => {
   const navigate = useNavigate();
   const [loading, setLoading] =useState<Boolean>(true)
-  const [killers, setKillers] = useState<User[]>();
+  const [killers, setKillers] = useState<Player[]>();
   useEffect(() => {
     getTopKillers().then(
       (response) => {
@@ -24,12 +24,12 @@ const TopPvP = () => {
   }, []);
   const PvpComponent = () => {
     const handleRedirect = (name: string) => {
-      navigate(`/users/${name}`);
+      navigate(`/Players/${name}`);
     };
 
     return (
       <>
-        {killers?.map((item: User) => (
+        {killers?.map((item: Player) => (
           <ListItem
           key={item.name}
           button

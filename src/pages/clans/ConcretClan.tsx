@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getClanByName } from "../../service/ClanService";
-import { Clan, User } from "../../types";
+import { Clan, Player } from "../../types";
 import ResponsiveAppBar from "../home/components/Navbar";
 const Concreteclan = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Concreteclan = () => {
     };
 
     const handleRedirect = (name: string) => {
-      navigate(`/users/${name}`);
+      navigate(`/Players/${name}`);
     };
 
     if (clan) {
@@ -108,12 +108,12 @@ const Concreteclan = () => {
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box>
-              {clan.members?.map((user: User) => (
+              {clan.members?.map((Player: Player) => (
                 <Chip
-                  key={user.name}
-                  label={user.name}
+                  key={Player.name}
+                  label={Player.name}
                   sx={{ borderRadius: "5px", color: "blue", margin: "5px" }}
-                  onClick={() => handleRedirect(user.name)}
+                  onClick={() => handleRedirect(Player.name)}
                   clickable
                 />
               ))}
@@ -127,6 +127,14 @@ const Concreteclan = () => {
 
   return (
     <>
+    <Grid
+        style={{
+          width: "1500px",
+          margin: "0 auto",
+          minHeight: "100%",
+          height: "auto !important",
+        }}
+      >
       <ResponsiveAppBar></ResponsiveAppBar>
       <Grid
         container
@@ -162,6 +170,7 @@ const Concreteclan = () => {
             </Box>
           </Box>
         </Grid>
+      </Grid>
       </Grid>
     </>
   );

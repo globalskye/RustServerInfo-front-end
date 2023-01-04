@@ -1,4 +1,4 @@
-export interface User {
+export interface Player {
     _id: string;
     steamId: number;
     clanName: string;
@@ -35,7 +35,7 @@ export interface User {
   export interface Online {
     _id: string;
     count: number;
-    users?: (string)[] | null;
+    Players?: (string)[] | null;
   }
  
   export interface Clan {
@@ -43,12 +43,12 @@ export interface User {
     name: string;
     abbr: string;
     leaderSteamId: number;
-    leader: User;
+    leader: Player;
     created: string;
     balance: number;
     tax: number;
     level: number;
     experience: number;
     membersSteamIds?: (number)[] | null;
-    members?: (User)[] | null;
+    members?: (Player)[] | null;
   }

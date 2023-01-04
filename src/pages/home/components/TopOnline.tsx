@@ -11,14 +11,14 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { User } from "../../../types";
+import { Player } from "../../../types";
 import { getTopOnline } from "../../../service";
 import { useNavigate } from "react-router-dom";
 
 const TopOnline = () => {
   const navigate = useNavigate();
   const [loading, setLoading] =useState<Boolean>(true)
-  const [killers, setKillers] = useState<User[]>();
+  const [killers, setKillers] = useState<Player[]>();
   useEffect(() => {
     getTopOnline().then(
       (response) => {
@@ -32,12 +32,12 @@ const TopOnline = () => {
   }, []);
   const OnlineComponent = () => {
     const handleRedirect = (name: string) => {
-      navigate(`/users/${name}`);
+      navigate(`/Players/${name}`);
     };
 
     return (
       <>
-        {killers?.map((item: User) => (
+        {killers?.map((item: Player) => (
           <ListItem
             key={item.name}
             button
@@ -50,7 +50,7 @@ const TopOnline = () => {
             <ListItemText
               style={{ justifyContent: "right", textAlign: "right" }}
             >
-              {(item.online / 24).toFixed(1)} ч.
+              {(item.online / 60).toFixed(1)} ч.
             </ListItemText>
           </ListItem>
         ))}

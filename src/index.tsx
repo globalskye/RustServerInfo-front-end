@@ -7,12 +7,14 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Snowfall from "react-snowfall";
 import customFont from "./fonts/Lobster-Regular.ttf";
 
-const snowflake1 = document.createElement('img')
-snowflake1.src = '/assets/snow1.png'
-const snowflake2 = document.createElement('img')
-snowflake2.src = '/assets/snow2.png'
+const snowflake1 = document.createElement("img");
+const snowflake3 = document.createElement("img");
+snowflake1.src = "http://pngimg.com/uploads/snowflakes/snowflakes_PNG7589.png";
+snowflake3.src = "http://pngimg.com/uploads/snowflakes/snowflakes_PNG7585.png";
+const snowflake2 = document.createElement("img");
+snowflake2.src = "http://pngimg.com/uploads/snowflakes/snowflakes_PNG7586.png";
 
-const images = [snowflake1, snowflake2]
+const images = [snowflake2, snowflake1, snowflake3];
 
 const theme = createTheme({
   palette: {
@@ -38,7 +40,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <ThemeProvider theme={theme}>
     <Snowfall
-    images={images}
+      images={images}
       style={{
         zIndex: 1,
         position: "absolute",
@@ -47,8 +49,9 @@ root.render(
         right: 0,
         bottom: 0,
       }}
-      snowflakeCount={300} // number of snowflakes
-      wind={[0.5, 10]} // wind speed
+      radius={[5,10]}
+      snowflakeCount={150} // number of snowflakes
+      wind={[0.5, 5]} // wind speed
       // maximum number of snowflakes
       // whether to show shadows
       color="#FFF" // snowflake color

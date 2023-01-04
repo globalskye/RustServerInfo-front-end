@@ -38,7 +38,7 @@ const Home = () => {
   return (
     //0b0d12
     <>
-      <div
+      <Grid
         style={{
           width: "1500px",
           margin: "0 auto",
@@ -67,7 +67,7 @@ const Home = () => {
             </Grid>
           </Container>
         </Box>
-      </div>
+      </Grid>
     </>
   );
 };

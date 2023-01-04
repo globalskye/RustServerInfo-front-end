@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 
 import { Chip, CircularProgress, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
-import { User } from "../../../types";
+import { Player } from "../../../types";
 
 import { getTopRaiders } from "../../../service";
 import { useNavigate } from "react-router-dom";
@@ -11,12 +11,12 @@ import { useNavigate } from "react-router-dom";
 const TopFarm = () => {
   const navigate = useNavigate();
   const [loading, setLoading] =useState<Boolean>(true)
-  const [users, setUsers] = useState<User[]>();
+  const [Players, setPlayers] = useState<Player[]>();
   useEffect(() => {
     getTopRaiders().then(
       (response) => {
         setLoading(false)
-        setUsers(response.data);
+        setPlayers(response.data);
       },
       (error) => {
         console.log(error);
@@ -25,12 +25,12 @@ const TopFarm = () => {
   }, []);
   const RaidersComponent = () => {
     const handleRedirect = (name: string) => {
-      navigate(`/users/${name}`);
+      navigate(`/Players/${name}`);
     };
 
     return (
       <>
-        {users?.map((item: User) => (
+        {Players?.map((item: Player) => (
           <ListItem
           key={item.name}
             button

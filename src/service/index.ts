@@ -1,2 +1,3 @@
 export * from './HomeService';
-export * from './UserService'
+export * from './PlayerService';
+export * from './AuthService';

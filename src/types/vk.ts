@@ -45,7 +45,7 @@ export interface Vk {
     post_id: number;
     sizes?: (SizesEntity)[] | null;
     text: string;
-    user_id: number;
+    Player_id: number;
     has_tags: boolean;
   }
   export interface SizesEntity {
@@ -97,14 +97,14 @@ export interface Vk {
   export interface Likes {
     can_like: number;
     count: number;
-    user_likes: number;
+    Player_likes: number;
     can_publish: number;
   }
   export interface Reposts {
     count: number;
     wall_count: number;
     mail_count: number;
-    user_reposted: number;
+    Player_reposted: number;
   }
   export interface Views {
     count: number;

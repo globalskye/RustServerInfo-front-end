@@ -1,27 +1,35 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import {
-  Box, Chip, Collapse, Grid, List, ListItem, ListItemButton, ListItemText, Typography
+  Box,
+  Chip,
+  Collapse,
+  Grid,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserByName } from "../../service";
-import { User } from "../../types";
+import { getPlayerByName } from "../../service";
+import { Player } from "../../types";
 import ResponsiveAppBar from "../home/components/Navbar";
-const ConcreteUser = () => {
+const ConcretePlayer = () => {
   const navigate = useNavigate();
   const { name } = useParams();
-  const [user, setUser] = useState<User>();
+  const [Player, setPlayer] = useState<Player>();
   useEffect(() => {
-    getUserByName(name).then(
+    getPlayerByName(name).then(
       (response) => {
-        setUser(response.data);
+        setPlayer(response.data);
       },
       (error) => {
         console.log(error);
       }
     );
   }, []);
-  const UserInfo = () => {
+  const PlayerInfo = () => {
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
@@ -32,26 +40,25 @@ const ConcreteUser = () => {
       navigate(`/clans/${name}`);
     };
     const ClanButton = () => {
-        if (user?.clanName){
-          return (
-            <Chip
-              label={user.clanName.toUpperCase()}
-              sx={{ borderRadius: "5px", color: "blue" }}
-              onClick={() => handleRedirect(user.clanName)}
-              clickable
-            />
-          )
-        }
-        return <Typography>Игрок не состоит в клане</Typography>
-    }
+      if (Player?.clanName) {
+        return (
+          <Chip
+            label={Player.clanName.toUpperCase()}
+            sx={{ borderRadius: "5px", color: "blue" }}
+            onClick={() => handleRedirect(Player.clanName)}
+            clickable
+          />
+        );
+      }
+      return <Typography>Игрок не состоит в клане</Typography>;
+    };
 
-    if (user) {
+    if (Player) {
       return (
         <List>
           <ListItem button>
             <ListItemText primary="Клан:" style={{ justifyContent: "left" }} />
-            <ClanButton/>
-            
+            <ClanButton />
           </ListItem>
           <ListItem button>
             <ListItemText
@@ -59,7 +66,7 @@ const ConcreteUser = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={user?.killedPlayers}
+              primary={Player?.killedPlayers}
               sx={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
@@ -69,14 +76,14 @@ const ConcreteUser = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={user?.deaths}
+              primary={Player?.deaths}
               sx={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
           <ListItem button>
             <ListItemText primary="КД:" style={{ justifyContent: "left" }} />
             <ListItemText
-              primary={(user.killedPlayers / user.deaths).toFixed(2)}
+              primary={(Player.killedPlayers / Player.deaths).toFixed(2)}
               sx={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
@@ -86,7 +93,7 @@ const ConcreteUser = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={(user.online / 24).toFixed(2)}
+              primary={(Player.online / 24).toFixed(2)}
               style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
@@ -96,7 +103,7 @@ const ConcreteUser = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={user.killedAnimals}
+              primary={Player.killedAnimals}
               style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
@@ -106,7 +113,7 @@ const ConcreteUser = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={user?.killedMutants}
+              primary={Player?.killedMutants}
               style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
@@ -116,11 +123,11 @@ const ConcreteUser = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={user?.raid}
+              primary={Player?.raid}
               style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
-          
+
           <ListItemButton onClick={handleClick}>
             <ListItemText primary="Фарм" style={{ justifyContent: "left" }} />
             {open ? <ExpandLess /> : <ExpandMore />}
@@ -133,7 +140,7 @@ const ConcreteUser = () => {
                   style={{ justifyContent: "left" }}
                 />
                 <ListItemText
-                  secondary={user.farm.sulfur}
+                  secondary={Player.farm.sulfur}
                   style={{ justifyContent: "right", textAlign: "right" }}
                 />
               </ListItemButton>
@@ -143,7 +150,7 @@ const ConcreteUser = () => {
                   style={{ justifyContent: "left" }}
                 />
                 <ListItemText
-                  secondary={user.farm.metal}
+                  secondary={Player.farm.metal}
                   style={{ justifyContent: "right", textAlign: "right" }}
                 />
               </ListItemButton>
@@ -153,7 +160,7 @@ const ConcreteUser = () => {
                   style={{ justifyContent: "left" }}
                 />
                 <ListItemText
-                  secondary={user.farm.wood}
+                  secondary={Player.farm.wood}
                   style={{ justifyContent: "right", textAlign: "right" }}
                 />
               </ListItemButton>
@@ -163,7 +170,7 @@ const ConcreteUser = () => {
                   style={{ justifyContent: "left" }}
                 />
                 <ListItemText
-                  secondary={user.farm.leather}
+                  secondary={Player.farm.leather}
                   style={{ justifyContent: "right", textAlign: "right" }}
                 />
               </ListItemButton>
@@ -173,7 +180,7 @@ const ConcreteUser = () => {
                   style={{ justifyContent: "left" }}
                 />
                 <ListItemText
-                  secondary={user.farm.cloth}
+                  secondary={Player.farm.cloth}
                   style={{ justifyContent: "right", textAlign: "right" }}
                 />
               </ListItemButton>
@@ -183,7 +190,7 @@ const ConcreteUser = () => {
                   style={{ justifyContent: "left" }}
                 />
                 <ListItemText
-                  secondary={user.farm.fat}
+                  secondary={Player.farm.fat}
                   style={{ justifyContent: "right", textAlign: "right" }}
                 />
               </ListItemButton>
@@ -197,44 +204,53 @@ const ConcreteUser = () => {
 
   return (
     <>
-      <ResponsiveAppBar></ResponsiveAppBar>
       <Grid
-        container
-        justifyItems={"center"}
-        alignItems={"center"}
-        direction={"column"}
-        sx={{ minHeight: "100vh" }}
+        style={{
+          width: "1500px",
+          margin: "0 auto",
+          minHeight: "100%",
+          height: "auto !important",
+        }}
       >
-        <Grid item>
-          <Box
-            bgcolor="#60EFE7"
-            sx={{
-              fontWeight: "bold",
-              borderRadius: "10px",
-              paddingRight: "12px",
-              paddingLeft: "12px",
-            }}
-          >
+        <ResponsiveAppBar></ResponsiveAppBar>
+        <Grid
+          container
+          justifyItems={"center"}
+          alignItems={"center"}
+          direction={"column"}
+          sx={{ minHeight: "100vh" }}
+        >
+          <Grid item>
             <Box
+              bgcolor="#60EFE7"
               sx={{
-                margin: "5px",
-                position: "relative",
-                width: "650px",
+                fontWeight: "bold",
+                borderRadius: "10px",
+                paddingRight: "12px",
+                paddingLeft: "12px",
               }}
             >
-              <Typography
-                variant="h5"
-                textAlign="center"
-                style={{ fontWeight: 1000 }}
+              <Box
+                sx={{
+                  margin: "5px",
+                  position: "relative",
+                  width: "650px",
+                }}
               >
-                {user?.name.toUpperCase()}
-              </Typography>
-              <UserInfo />
+                <Typography
+                  variant="h5"
+                  textAlign="center"
+                  style={{ fontWeight: 1000 }}
+                >
+                  {Player?.name.toUpperCase()}
+                </Typography>
+                <PlayerInfo />
+              </Box>
             </Box>
-          </Box>
+          </Grid>
         </Grid>
       </Grid>
     </>
   );
 };
-export default ConcreteUser;
+export default ConcretePlayer;

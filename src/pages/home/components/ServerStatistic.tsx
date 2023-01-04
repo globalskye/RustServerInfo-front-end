@@ -6,9 +6,9 @@ import { Chip, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { LinearProgress } from "@mui/material";
 import { getOnline } from "../../../service";
-import { Online, User } from "../../../types/user";
+import { Online, Player } from "../../../types/player";
 import { useNavigate } from "react-router-dom";
-import { isTemplateLiteral } from "typescript";
+
 
 const ServerStatistic = () => {
   const navigate = useNavigate();
@@ -28,12 +28,12 @@ const ServerStatistic = () => {
 
   const OnlineComponent = () => {
     const handleRedirect = (name: string) => {
-      navigate(`/users/${name}`);
+      navigate(`/players/${name}`);
     };
 
     return (
       <>
-        {online?.users?.map((item: string) => (
+        {online?.Players?.map((item: string) => (
           <Chip
             key={item}
             sx={{ borderRadius: "5px", margin: "2px" }}
@@ -67,7 +67,7 @@ const ServerStatistic = () => {
         <LinearProgress
           sx={{ height: "30px" }}
           variant="buffer"
-          value={online?.users?.length || 0}
+          value={online?.Players?.length || 0}
           valueBuffer={100}
         />
 
@@ -80,7 +80,7 @@ const ServerStatistic = () => {
             transform: "translateX(-50%)",
           }}
         >
-          Classic {online?.users?.length}/100
+          Classic {online?.Players?.length}/100
         </Typography>
         <Box sx={{ marginTop: "5px", marginBottom: "20px" }}>
           {loading ? <CircularProgress /> : <OnlineComponent />}
