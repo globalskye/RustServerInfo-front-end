@@ -1,7 +1,7 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Grid, Box, Typography, Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 import { useState } from "react";
-import ResponsiveAppBar from "./Navbar";
+import ResponsiveAppBar from "../../Navbar";
 
 const RulesComponent = () => {
 

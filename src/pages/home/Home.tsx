@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import ResponsiveAppBar from "./components/Navbar";
+import ResponsiveAppBar from "../Navbar";
 import { Container, ThemeProvider, useMediaQuery } from "@mui/material";
 import ServerStatistic from "./components/ServerStatistic";
 import TopClans from "./components/TopClans";

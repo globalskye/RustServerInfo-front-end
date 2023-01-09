@@ -12,7 +12,7 @@ import DataTable, { ExpanderComponentProps } from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 import { getPlayers } from "../../service";
 import { Player } from "../../types";
-import ResponsiveAppBar from "../home/components/Navbar";
+import ResponsiveAppBar from "../Navbar";
 
 const gridItem = {
   paddingRight: "12px",

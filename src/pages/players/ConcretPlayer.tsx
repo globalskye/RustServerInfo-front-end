@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlayerByName } from "../../service";
 import { Player } from "../../types";
-import ResponsiveAppBar from "../home/components/Navbar";
+import ResponsiveAppBar from "../Navbar";
 const ConcretePlayer = () => {
   const navigate = useNavigate();
   const { name } = useParams();

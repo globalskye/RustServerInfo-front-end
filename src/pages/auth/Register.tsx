@@ -1,93 +1,114 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Container, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { userRegister } from "../../service/AuthService";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, Container, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Navigate, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { checkUser, userRegister } from "../../service/AuthService";
+import ResponsiveAppBar from "../Navbar";
 
 interface IFormInput {
-  email: string;
-  Playername: string;
+  username: string;
   password: string;
+  confirmPwd: string;
 }
 
 const schema = yup.object().shape({
-  email: yup.string().required().email(),
-  Playername: yup.string().required().min(2).max(25),
-  password: yup.string().required().min(8).max(120)
+  username: yup.string().required().min(2).max(25),
+  password: yup.string().required().min(8).max(120),
+  confirmPwd: yup
+    .string()
+    .required("Пароль обязателен")
+    .oneOf([yup.ref("password")], "Пароли не совпадают"),
 });
 
 const Register = () => {
-  const [message, setMessage] = useState<string>('');
-
+  const [message, setMessage] = useState<string>("");
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<IFormInput>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = (data: IFormInput) => {
-    userRegister(data.Playername, data.email, data.password).then(
+    checkUser(data.username).then(
       (response) => {
-        setMessage('Player succfully registred');
+        userRegister(data.username, data.password).then(
+          (response) => {
+            setMessage("Пользователь успешно зарегестрирован")
+            navigate("/login")
+          },
+          (error) => {
+            setMessage("Что-то пошло не так: " + error.error);
+          }
+        );
       },
       (error) => {
-        const resMessage =
-          (error.response && error.response.data && error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setMessage('something went wrong : ' + resMessage);
+        setMessage("something went wrong : " + error.error);
       }
     );
+   
   };
 
   return (
-    <Container maxWidth="xs">
-      <Typography variant="h3">Sign In</Typography>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <TextField
-          {...register('email')}
-          variant="outlined"
-          margin="normal"
-          label="Email"
-          helperText={errors.email?.message}
-          error={!!errors.email?.message}
-          fullWidth
-          required
-        />
-        <TextField
-          {...register('Playername')}
-          variant="outlined"
-          margin="normal"
-          label="Name"
-          helperText={errors.Playername?.message}
-          error={!!errors.Playername?.message}
-          fullWidth
-        />
-        <TextField
-          {...register('password')}
-          variant="outlined"
-          margin="normal"
-          label="Password"
-          helperText={errors.password?.message}
-          error={!!errors.password?.message}
-          type="password"
-          fullWidth
-        />
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          Sign Up
-        </Button>
-        {message && (
-          <>
-            <Typography variant="body1">{message}</Typography>
-            <Typography variant="body2"></Typography>
-          </>
-        )}
-      </form>
-    </Container>
+    <>
+      <ResponsiveAppBar></ResponsiveAppBar>
+      <Container
+        maxWidth="xs"
+        sx={{
+          backgroundColor: "white",
+          marginTop: "20px",
+          borderRadius: "20px",
+        }}
+        style={{minHeight:"40vh", maxHeight:"50vh", height:'100%'}}
+      >
+        <Typography variant="h3" sx={{textAlign:'center'}}>Регистрация</Typography>
+
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <TextField
+            {...register("username")}
+            variant="outlined"
+            margin="normal"
+            label="Имя"
+            helperText={errors.username?.message}
+            error={!!errors.username?.message}
+            fullWidth
+          />
+          <TextField
+            {...register("password")}
+            variant="outlined"
+            margin="normal"
+            label="Пароль"
+            helperText={errors.password?.message}
+            error={!!errors.password}
+            type="password"
+            fullWidth
+          />
+          <TextField
+            {...register("confirmPwd")}
+            variant="outlined"
+            margin="normal"
+            label="Повторите пароль"
+            helperText={errors.confirmPwd?.message}
+            error={!!errors.confirmPwd}
+            type="password"
+            fullWidth
+          />
+          <Button type="submit" fullWidth variant="contained" color="primary" >
+            зарегестрироваться
+          </Button>
+          {message && (
+            <>
+              <Typography variant="body1">{message}</Typography>
+              <Typography variant="body2"></Typography>
+            </>
+          )}
+        </form>
+      </Container>
+    </>
   );
 };
 

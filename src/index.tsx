@@ -28,6 +28,7 @@ const theme = createTheme({
       fontWeight: "bold",
       fontFamily: "monospace",
     },
+    
     body1: {
       fontFamily: "monospace",
     },

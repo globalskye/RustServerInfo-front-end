@@ -4,16 +4,16 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { login } from "../../service/AuthService";
+import { checkUser, login } from "../../service/AuthService";
+import ResponsiveAppBar from "../Navbar";
 
 interface IFormInput {
-  email: string;
-  Playername: string;
+  username: string;
   password: string;
 }
 
 const schema = yup.object().shape({
-  Playername: yup.string().required().min(2).max(25),
+  username: yup.string().required().min(2).max(25),
   password: yup.string().required(),
 });
 
@@ -42,70 +42,65 @@ const Login: React.FC = () => {
 
   // const { heading, submitButton } = useStyles();
   const onSubmit = (data: IFormInput) => {
-    login(data.Playername, data.password).then(
+    login(data.username, data.password).then(
       (response) => {
-        navigate("/home");
-        window.location.reload();
-        setMessage("login success");
+        setMessage("Вход выполнен успешно")
+        navigate("/profile");
       },
       (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setMessage("something went wrong : " + resMessage);
+        setMessage("something went wrong : " + error);
       }
     );
   };
 
   return (
-    <Container maxWidth="xs">
-      <Typography
-        // className={heading}
-        variant="h3"
-      >
-        Sign Up
-      </Typography>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <TextField
-          {...register("Playername")}
-          variant="outlined"
-          margin="normal"
-          label="Name"
-          helperText={errors.Playername?.message}
-          error={!!errors.Playername?.message}
-          fullWidth
-        />
-        <TextField
-          {...register("password")}
-          variant="outlined"
-          margin="normal"
-          label="Password"
-          helperText={errors.password?.message}
-          error={!!errors.password?.message}
-          type="password"
-          fullWidth
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          // className={submitButton}
+    <>
+      <ResponsiveAppBar></ResponsiveAppBar>
+      <Container maxWidth="xs" sx={{ backgroundColor: "white" }}>
+        <Typography
+          // className={heading}
+          variant="h3"
         >
-          Sign In
-        </Button>
-        {message && (
-          <>
-            <Typography variant="body1">{message}</Typography>
-            <Typography variant="body2"></Typography>
-          </>
-        )}
-      </form>
-    </Container>
+          Sign Up
+        </Typography>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <TextField
+            {...register("username")}
+            variant="outlined"
+            margin="normal"
+            label="Name"
+            helperText={errors.username?.message}
+            error={!!errors.username?.message}
+            fullWidth
+          />
+          <TextField
+            {...register("password")}
+            variant="outlined"
+            margin="normal"
+            label="Password"
+            helperText={errors.password?.message}
+            error={!!errors.password?.message}
+            type="password"
+            fullWidth
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            // className={submitButton}
+          >
+            Sign In
+          </Button>
+          {message && (
+            <>
+              <Typography variant="body1">{message}</Typography>
+              <Typography variant="body2"></Typography>
+            </>
+          )}
+        </form>
+      </Container>
+    </>
   );
 };
 

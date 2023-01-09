@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { getPlayers } from "../../service";
 import { getClans } from "../../service/ClanService";
 import { Clan, Player } from "../../types";
-import ResponsiveAppBar from "../home/components/Navbar";
+import ResponsiveAppBar from "../Navbar";
 
 const gridItem = {
   paddingRight: "12px",

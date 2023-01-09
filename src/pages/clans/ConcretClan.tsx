@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getClanByName } from "../../service/ClanService";
 import { Clan, Player } from "../../types";
-import ResponsiveAppBar from "../home/components/Navbar";
+import ResponsiveAppBar from "../Navbar";
 const Concreteclan = () => {
   const navigate = useNavigate();
   const { name } = useParams();
