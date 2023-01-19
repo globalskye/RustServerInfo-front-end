@@ -1,14 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
+import RegisterForm from "../pages/auth/Register";
+
 import ClanList from "../pages/clans/ClanList";
 import ConcreteClan from "../pages/clans/ConcretClan";
 import RulesComponent from "../pages/home/components/Rules";
 import Home from "../pages/home/Home";
-import Home2 from "../pages/home/Home2";
-import RegisterForm from "../pages/Theme";
+
 import ConcretePlayer from "../pages/players/ConcretPlayer";
 import PlayersList from "../pages/players/PlayersList";
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
+
+import ShopPage from "../pages/shop/Shop";
 
 const router = createBrowserRouter([
   {
@@ -16,9 +17,10 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/home2",
-    element: <Home2 />,
+    path: "/shop",
+    element: <ShopPage />,
   },
+
   {
     path: "/profile",
     element: <Home />,
@@ -40,20 +42,12 @@ const router = createBrowserRouter([
     element: <ConcreteClan />,
   },
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
+    path: "/test",
+    element: <RegisterForm />
   },
   {
     path: "/rules",
     element: <RulesComponent />,
-  },
-  {
-    path: "/sign-up",
-    element: <RegisterForm />,
   },
 ]);
 

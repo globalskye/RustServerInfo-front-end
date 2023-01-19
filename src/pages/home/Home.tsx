@@ -1,65 +1,46 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ResponsiveAppBar from "../Navbar";
-import { Container, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Container, Paper, ThemeProvider, useMediaQuery } from "@mui/material";
 import ServerStatistic from "./components/ServerStatistic";
 import TopClans from "./components/TopClans";
 import TopPvP from "./components/TopPvP";
-import VkPage from "./components/VkNews";
+
 import InfoButtons from "./components/InfoButtons";
 import TopFarm from "./components/TopRaid";
 import TopOnline from "./components/TopOnline";
 import { createTheme } from "@mui/system";
+import NewsList from "./components/VkNews";
 
-const gridItem = {
-  paddingRight: "12px",
-  paddingLeft: "12px",
-};
+import Image from './bg.png'; // Import using relative path
 
-const gridContainer = {
-  paddingTop: "24px",
-  paddingBottom: "24px",
+const styles = {
+  paperContainer: {
+      backgroundImage: `url(${Image})`
+  }
 };
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
 
 const Home = () => {
-  const minWidth600 = !useMediaQuery("(min-width:600px)");
+ 
 
   return (
     //0b0d12
     <>
-      <Grid
-        style={{
-          width: "1500px",
-          margin: "0 auto",
-          minHeight: "100%",
-          height: "auto !important",
-        }}
-      >
+      <Paper style={styles.paperContainer}>
         <ResponsiveAppBar></ResponsiveAppBar>
 
         <Box sx={{ flexGrow: 1 }}>
           <Container maxWidth="xl">
-            <Grid container style={gridContainer} spacing={3}>
-              <Grid item xs style={gridItem}>
+            <Grid container  spacing={3}>
+              <Grid item xs>
                 <ServerStatistic />
                 <TopPvP />
                 <TopClans />
               </Grid>
-              <Grid item xs={6} style={gridItem}>
-                <VkPage />
+              <Grid item xs={6} >
+                <NewsList />
               </Grid>
-              <Grid item xs style={gridItem}>
+              <Grid item xs>
                 <InfoButtons />
                 <TopFarm />
                 <TopOnline />
@@ -67,7 +48,7 @@ const Home = () => {
             </Grid>
           </Container>
         </Box>
-      </Grid>
+      </Paper>
     </>
   );
 };

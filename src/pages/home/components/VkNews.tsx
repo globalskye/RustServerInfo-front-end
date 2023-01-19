@@ -1,101 +1,69 @@
-import * as React from "react";
-
-import Box from "@mui/material/Box";
-
+import React, { useEffect, useState } from "react";
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CircularProgress,
-  createMuiTheme,
-  createTheme,
   List,
   ListItem,
-  ListItemButton,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
   Typography,
+  Box,
+  CardContent,
+  Card,
+  CardMedia,
+  Link,
 } from "@mui/material";
 
-import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { getVkNews } from "../../../service";
-import { ItemsEntity, Vk } from "../../../types";
-import { ThemeProvider } from "styled-components";
+import { ItemsEntity, ResponseVk } from "../../../types";
 
-const theme = createTheme({
-  components: {
-    MuiList: {
-      styleOverrides: {
-        root: {
-          scrollbarColor: "#ffffff",
-          backgroundColor: "red",
-        },
-        // "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
-        //   borderRadius: 8,
-        //   backgroundColor: "#6b6b6b",
-        //   minHeight: 24,
-        //   border: "3px solid #2b2b2b",
-        // },
-        //  scrollbarColor: "#6b6b6b #2b2b2b",
-        // "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-        //   backgroundColor: "#2b2b2b",
-        // },
-        // "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
-        //   {
-        //     backgroundColor: "#959595",
-        //   },
-        // "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active":
-        //   {
-        //     backgroundColor: "#959595",
-        //   },
-        // "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover":
-        //   {
-        //     backgroundColor: "#959595",
-        //   },
-        // "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
-        //   backgroundColor: "#2b2b2b",
-        // },
-      },
-    },
-  },
-});
+const ScrollableList = styled.div`
+  overflow: auto;
+  max-height: 140vh;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 0.2em;
+    background-color: #F5F5F5;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #555;
+  }
+`;
+const CenteredContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const DateContainer = styled.div`
+  float: right;
+  font-size: 15px;
+`;
+const TextContainer = styled.div`
+  padding: 10px;
+  text-align: left;
+`;
+const Heading = styled(Typography)`
+  font-size: 18px;
+  font-weight: bold;
+`;
 
-const VkPage = () => {
-  const [loading, setLoading] = useState<Boolean>(true);
-  const [vk, setVk] = useState<Vk>();
+
+
+const NewsList = () => {
+  const [data, setData] = useState<ResponseVk>();
   useEffect(() => {
     getVkNews().then(
       (response) => {
-        setLoading(false);
-        setVk(response.data);
+        setData(response.data);
+        console.log(response.data);
       },
       (error) => {
         console.log(error);
       }
     );
   }, []);
-  const VkNewsList = () => {
-    return (
-      <>
-        {vk?.response.items?.map((item: ItemsEntity) => (
-          <ListItemButton
-            key={item.id}
-            LinkComponent="a"
-            sx={{
-              borderRadius: "10px",
-              marginBottom: "15px",
-              bgcolor: "white",
-            }}
-            href={
-              "https://vk.com/rustdark12?w=wall" + item.owner_id + "_" + item.id
-            }
-          >
-            <div></div>
-            <Typography sx={{ whiteSpace: "pre-wrap" }}>{item.text}</Typography>
-          </ListItemButton>
-        ))}
-      </>
-    );
-  };
 
   return (
     <Box
@@ -110,21 +78,60 @@ const VkPage = () => {
       <Typography variant="h5" textAlign="center" style={{ fontWeight: 1000 }}>
         Новости
       </Typography>
-
       <List
         sx={{
           borderRadius: "10px",
           display: "flex",
           flexDirection: "column",
           height: 1400,
-          overflow: "hidden",
-          overflowY: "scroll",
-          // justifyContent="flex-end" # DO NOT USE THIS WITH 'scroll'
+          
+
         }}
       >
-        {loading ? <CircularProgress /> : <VkNewsList />}
+         <ScrollableList>
+        {data?.items?.map((item: ItemsEntity) => (
+            <Card key={item.id} sx={{marginBottom:'20px'}}>
+              
+              <TextContainer>
+              <Heading variant="h5" gutterBottom>
+                {item.text.split('\n')[0]}
+              </Heading>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: item.text
+                    .replace(/\n/g, "<br>")
+                    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>'),
+                }}
+                onClick={(event) => {}}
+              />
+              </TextContainer>
+              
+              <CardContent>
+                <CenteredContainer>
+                  {item.imageLink && (
+                    <img src={item.imageLink} style={{ maxWidth: '100%' }} />
+                  )}
+                  {item.videoLink && (
+                    <iframe
+                      width="100%"
+                      height="415"
+                      src={item.videoLink}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    ></iframe>
+                  )}
+                </CenteredContainer>
+              </CardContent>
+              <DateContainer>
+                {new Date(item.date*1000).toLocaleDateString()}
+              </DateContainer>
+            </Card>
+        ))}
+      </ScrollableList>
       </List>
     </Box>
   );
 };
-export default VkPage;
+
+export default NewsList;
