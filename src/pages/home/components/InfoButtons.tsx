@@ -7,19 +7,18 @@ import { useNavigate } from "react-router-dom";
 const InfoButtons = () => {
   const navigate = useNavigate();
 
-  const handleRedirect = (name: string) => {
-    window.location.href = `name`;
-  };
+  
   return (
     <Box
-      bgcolor="#60EFE7"
-      sx={{
-        fontWeight: "bold",
-        borderRadius: "10px",
-        paddingRight: "12px",
-        paddingLeft: "12px",
-      }}
-    >
+    bgcolor={"secondary.main"}
+    border={"1px solid #40444E"}
+    sx={{
+      fontWeight: "bold",
+      borderRadius: "10px",
+      paddingRight: "12px",
+      paddingLeft: "12px",
+    }}
+  >
       <Box>
         <Button
           variant="text"

@@ -1,0 +1,70 @@
+table {
+    font-size: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    
+    
+  }
+  
+  th, td {
+    border-bottom-color: #92a8d1;
+    padding: 8px;
+    text-align: left;
+  }
+  tr {
+      transition: background-color 0.3s ease-in-out;
+  }
+  
+  th {
+    background-color: #1F2026;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  tr:hover {
+      
+      background-color: #222d38;
+  }
+  th:hover {
+      cursor: pointer; /* changes cursor to pointer on hover */
+      background-color: #222d38; /* changes background color on hover */
+      color: #fff; /* changes text color on hover */
+    }
+  td:hover {
+      cursor: pointer; /* changes cursor to pointer on hover */
+      
+     
+    }
+  td {
+    font-weight: bold;
+    font-size: large;
+    border-bottom: 1px solid #222d38;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .pagination .pagination-list {
+    display: flex;
+  }
+  
+  .pagination .pagination-list li {
+    list-style: none;
+    margin: 0 5px;
+  }
+  
+  .pagination .pagination-list li a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+  }
+  
+  .pagination .pagination-list li a.active {
+    background-color: #222d38;
+    color: #fff;
+  }

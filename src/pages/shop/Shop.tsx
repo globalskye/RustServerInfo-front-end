@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { ShopItem } from "../../types";
 import RustShopItemCard  from "./components/Item";
-import ResponsiveAppBar from "../Navbar";
+import ResponsiveAppBar from "../navbar/Navbar";
 import { TransitionGroup, CSSTransition,  } from 'react-transition-group';
 
 interface Props {

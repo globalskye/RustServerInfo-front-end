@@ -8,6 +8,8 @@ import Home from "../pages/home/Home";
 
 import ConcretePlayer from "../pages/players/ConcretPlayer";
 import PlayersList from "../pages/players/PlayersList";
+import PlayersList2 from "../pages/players/PlayersList";
+import Roulette from "../pages/shop/components/Roulette";
 
 import ShopPage from "../pages/shop/Shop";
 
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
     element: <PlayersList />,
   },
   {
+    path: "/players2",
+    element: <PlayersList2 />,
+  },
+  {
     path: "/players/:name",
     element: <ConcretePlayer />,
   },
@@ -44,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/test",
     element: <RegisterForm />
+  },
+  {
+    path: "/r",
+    element: <Roulette />
   },
   {
     path: "/rules",

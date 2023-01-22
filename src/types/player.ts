@@ -17,6 +17,23 @@ export interface Player {
     online: number;
     raid: number;
   }
+  export interface TablePlayer {
+    _id: string;
+    steamId: number;
+    clanName: string;
+    name: string;
+    hwid: string;
+    rank: number;
+    firstConnectTime: Date;
+    lastConnectTime: Date;
+    balance: number;
+    killedPlayers: number;
+    killedMutants: number;
+    killedAnimals: number;
+    deaths: number;
+    online: number;
+    raid: number;
+  }
   export interface KitsEntity {
     name: string;
     countdown: string;
@@ -35,7 +52,7 @@ export interface Player {
   export interface Online {
     _id: string;
     count: number;
-    Players?: (string)[] | null;
+    nicknames?: (string)[] | null;
   }
  
   export interface Clan {
@@ -51,4 +68,13 @@ export interface Player {
     experience: number;
     membersSteamIds?: (number)[] | null;
     members?: (Player)[] | null;
+  }
+  export interface TableClan {
+    _id: string;
+    name: string;
+    leader: Player;
+    balance: number;
+    tax: number;
+    level: number;
+    experience: number;
   }

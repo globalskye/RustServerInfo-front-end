@@ -8,13 +8,13 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getClanByName } from "../../service/ClanService";
 import { Clan, Player } from "../../types";
-import ResponsiveAppBar from "../Navbar";
+import ResponsiveAppBar from "../navbar/Navbar";
 const Concreteclan = () => {
   const navigate = useNavigate();
   const { name } = useParams();
@@ -28,7 +28,7 @@ const Concreteclan = () => {
         console.log(error);
       }
     );
-  }, []);
+  }, [name]);
   const ClanInfo = () => {
     const [open, setOpen] = useState(false);
 
@@ -37,7 +37,7 @@ const Concreteclan = () => {
     };
 
     const handleRedirect = (name: string) => {
-      navigate(`/Players/${name}`);
+      navigate(`/players/${name}`);
     };
 
     if (clan) {

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 
-import { Chip, CircularProgress, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { CircularProgress, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { Player } from "../../../types";
 
-import { getTopRaiders } from "../../../service";
 import { useNavigate } from "react-router-dom";
+import { getTopRaiders } from "../../../service";
 
 const TopFarm = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const TopFarm = () => {
           <ListItem
           key={item.name}
             button
-            sx={{bgcolor:"#67DAD4", borderRadius: "2px", marginTop: "2px" }}
+            sx={{ borderRadius: "2px", marginTop: "2px" }}
             onClick={() => handleRedirect(item.name)}
           >
             <ListItemText  style={{justifyContent:'left'}} >
@@ -50,7 +50,8 @@ const TopFarm = () => {
   };
   return (
     <Box
-      bgcolor="#60EFE7"
+      bgcolor={"secondary.main"}
+      border={"1px solid #40444E"}
       sx={{
         fontWeight: "bold",
         borderRadius: "10px",

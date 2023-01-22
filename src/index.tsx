@@ -1,17 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 // import './index.css';
+import {
+  createTheme,
+  CssBaseline,
+  ThemeProvider
+} from "@mui/material";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import Snowfall from "react-snowfall";
 
 const theme = createTheme({
   palette: {
-    background: {
-      default: "#00030c",
+    primary: {
+      main: "#212429",
     },
+    secondary: {
+      main: "#1F2026",
+    },
+    text: { 
+      primary:'#FFFFFF',
+      secondary:'#85DED6'
+    },
+    warning: {
+      main: "#85DED6",
+    },
+    background: {
+      default: '#212429',
+      paper: '1F2026',
+    }
+
   },
+  
 
   typography: {
     h5: {
@@ -30,9 +49,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

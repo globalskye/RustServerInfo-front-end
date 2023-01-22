@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 
-import { Chip, CircularProgress, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
-import { Player } from "../../../types";
-import { getTopKillers } from "../../../service";
+import { CircularProgress, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { getTopKillers } from "../../../service";
+import { Player } from "../../../types";
 
 const TopPvP = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const TopPvP = () => {
           <ListItem
           key={item.name}
           button
-          sx={{bgcolor:"#67DAD4",borderRadius: "2px", marginTop: "2px" }}
+          sx={{borderRadius: "2px", marginTop: "2px" }}
           onClick={() => handleRedirect(item.name)}
         >
           <ListItemText  style={{justifyContent:'left'}} >
@@ -49,14 +49,16 @@ const TopPvP = () => {
   };
   return (
     <Box
-      bgcolor="#60EFE7"
-      sx={{
-        fontWeight: "bold",
-        borderRadius: "10px",
-        paddingRight: "12px",
-        paddingLeft: "12px",
-      }}
-    >
+    
+    bgcolor={"secondary.main"}
+    border={"1px solid #40444E"}
+    sx={{
+      fontWeight: "bold",
+      borderRadius: "10px",
+      paddingRight: "12px",
+      paddingLeft: "12px",
+    }}
+  >
       <Box
         sx={{
           margin: "4px",

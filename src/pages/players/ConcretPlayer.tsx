@@ -8,13 +8,13 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlayerByName } from "../../service";
 import { Player } from "../../types";
-import ResponsiveAppBar from "../Navbar";
+import ResponsiveAppBar from "../navbar/Navbar";
 const ConcretePlayer = () => {
   const navigate = useNavigate();
   const { name } = useParams();
@@ -28,7 +28,7 @@ const ConcretePlayer = () => {
         console.log(error);
       }
     );
-  }, []);
+  }, [name]);
   const PlayerInfo = () => {
     const [open, setOpen] = useState(false);
 
@@ -44,7 +44,11 @@ const ConcretePlayer = () => {
         return (
           <Chip
             label={Player.clanName.toUpperCase()}
-            sx={{ borderRadius: "5px", color: "blue" }}
+            sx={{
+              border: "1px solid #40444E",
+              borderRadius: "10px",
+              margin: "2px",
+            }}
             onClick={() => handleRedirect(Player.clanName)}
             clickable
           />
@@ -222,7 +226,8 @@ const ConcretePlayer = () => {
         >
           <Grid item>
             <Box
-              bgcolor="#60EFE7"
+              bgcolor={"secondary.main"}
+              border={"1px solid #40444E"}
               sx={{
                 fontWeight: "bold",
                 borderRadius: "10px",

@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 
-import { Chip, Typography } from "@mui/material";
+import { Chip, LinearProgress, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { LinearProgress } from "@mui/material";
-import { getOnline } from "../../../service";
-import { Online, Player } from "../../../types/player";
 import { useNavigate } from "react-router-dom";
-
+import { getOnline } from "../../../service";
+import { Online } from "../../../types/player";
 
 const ServerStatistic = () => {
   const navigate = useNavigate();
@@ -33,10 +31,14 @@ const ServerStatistic = () => {
 
     return (
       <>
-        {online?.Players?.map((item: string) => (
+        {online?.nicknames?.map((item: string) => (
           <Chip
             key={item}
-            sx={{ borderRadius: "5px", margin: "2px" }}
+            sx={{
+              border: "1px solid #40444E",
+              borderRadius: "10px",
+              margin: "2px",
+            }}
             label={item}
             onClick={() => handleRedirect(item)}
             clickable
@@ -48,7 +50,8 @@ const ServerStatistic = () => {
 
   return (
     <Box
-      bgcolor="#60EFE7"
+      bgcolor={"secondary.main"}
+      border={"1px solid #40444E"}
       sx={{
         fontWeight: "bold",
         borderRadius: "10px",
@@ -65,22 +68,32 @@ const ServerStatistic = () => {
         }}
       >
         <LinearProgress
-          sx={{ height: "30px" }}
+          style={{}}
+          sx={{
+            height: "30px",
+            "& .MuiLinearProgress-colorPrimary": {
+              backgroundColor: "#40444E",
+            },
+            "& .MuiLinearProgress-barColorPrimary": {
+              backgroundColor: "#85DED6",
+            },
+            border: "1px solid #40444E",
+          }}
           variant="buffer"
-          value={online?.Players?.length || 0}
+          value={online?.nicknames?.length || 0}
           valueBuffer={100}
         />
 
         <Typography
           style={{
             position: "absolute",
-            color: "black",
+            color: "white",
             top: 0,
             left: "50%",
             transform: "translateX(-50%)",
           }}
         >
-          Classic {online?.Players?.length}/100
+          Classic {online?.nicknames?.length}/100
         </Typography>
         <Box sx={{ marginTop: "5px", marginBottom: "20px" }}>
           {loading ? <CircularProgress /> : <OnlineComponent />}

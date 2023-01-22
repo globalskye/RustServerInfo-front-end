@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { checkUser, login } from "../../service/AuthService";
-import ResponsiveAppBar from "../Navbar";
+import { login } from "../../service/AuthService";
+import ResponsiveAppBar from "../navbar/Navbar";
 
 interface IFormInput {
   username: string;
