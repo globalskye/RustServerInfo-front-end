@@ -61,7 +61,7 @@ const RustShopItemCard: React.FC<ItemProps> = ({ item, onClick,style }) => {
        
         style={{
           ...style,
-          width:'1000',
+          width:'100%',
           transform: isHovered ? "scale(1.05)" : "scale(1) ",
           transition: "transform 0.2s ease-in-out",
           filter: filter,

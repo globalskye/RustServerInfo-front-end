@@ -47,7 +47,11 @@ const Concreteclan = () => {
             <ListItemText primary="Лидер:" style={{ justifyContent: "left" }} />
             <Chip
               label={clan.leader.name.toUpperCase()}
-              sx={{ borderRadius: "5px", color: "blue" }}
+              sx={{
+                border: "1px solid #40444E",
+                borderRadius: "10px",
+                margin: "2px",
+              }}
               onClick={() => handleRedirect(clan.leader.name)}
               clickable
             />
@@ -112,7 +116,11 @@ const Concreteclan = () => {
                 <Chip
                   key={Player.name}
                   label={Player.name}
-                  sx={{ borderRadius: "5px", color: "blue", margin: "5px" }}
+                  sx={{
+                    border: "1px solid #40444E",
+                    borderRadius: "10px",
+                    margin: "2px",
+                  }}
                   onClick={() => handleRedirect(Player.name)}
                   clickable
                 />
@@ -145,20 +153,30 @@ const Concreteclan = () => {
       >
         <Grid item>
           <Box
-            bgcolor="#60EFE7"
+            
             sx={{
               borderRadius: "10px",
               paddingRight: "12px",
               paddingLeft: "12px",
             }}
           >
-            <Box
+           <Box
+              bgcolor={"secondary.main"}
+              border={"1px solid #40444E"}
               sx={{
-                margin: "5px",
-                position: "relative",
-                width: "650px",
+                fontWeight: "bold",
+                borderRadius: "10px",
+                paddingRight: "12px",
+                paddingLeft: "12px",
               }}
             >
+              <Box
+                sx={{
+                  margin: "5px",
+                  position: "relative",
+                  width: "650px",
+                }}
+              >
               <Typography
                 variant="h5"
                 textAlign="center"
@@ -167,6 +185,7 @@ const Concreteclan = () => {
                 {clan?.name.toUpperCase()}
               </Typography>
               <ClanInfo />
+              </Box>
             </Box>
           </Box>
         </Grid>

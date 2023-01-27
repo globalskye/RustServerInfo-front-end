@@ -94,16 +94,7 @@ const ShopPage = () => {
           style={{ maxWidth: 1400, margin: "auto", display: "flex" }}
         >
           <Grid item xs={12}>
-            <Button onClick={() => handleCategorySelection("All")}>All</Button>
-            <Button onClick={() => handleCategorySelection("Category1")}>
-              Category 1
-            </Button>
-            <Button onClick={() => handleCategorySelection("Category2")}>
-              Category2
-            </Button>
-            <Button onClick={() => handleCategorySelection("Category3")}>
-              Category3
-            </Button>
+            <Button variant="outlined" sx={{color: 'white'}}onClick={() => handleCategorySelection("All")}>All</Button>
           </Grid>
 
           <Grid item xs={12}>

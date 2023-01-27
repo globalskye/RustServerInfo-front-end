@@ -51,7 +51,7 @@ const NewsList = () => {
     getVkNews().then(
       (response) => {
         setData(response.data);
-        console.log(response.data);
+        
       },
       (error) => {
         console.log(error);

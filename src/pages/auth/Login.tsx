@@ -1,11 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Container, TextField, Typography } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Avatar, Box, Button, CircularProgress, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { login } from "../../service/AuthService";
-import ResponsiveAppBar from "../navbar/Navbar";
 
 interface IFormInput {
   username: string;
@@ -28,10 +28,11 @@ const schema = yup.object().shape({
 //     }
 //   }));
 
-const Login: React.FC = () => {
+const LoginForm: React.FC = () => {
   const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-
+  
   const {
     register,
     handleSubmit,
@@ -42,27 +43,39 @@ const Login: React.FC = () => {
 
   // const { heading, submitButton } = useStyles();
   const onSubmit = (data: IFormInput) => {
+    setLoading(true)
     login(data.username, data.password).then(
       (response) => {
-        setMessage("Вход выполнен успешно")
+        setLoading(false)
+        window.location.reload()
         navigate("/profile");
       },
       (error) => {
-        setMessage("something went wrong : " + error);
+        
+        setLoading(false)
+        setMessage( "Неверный логин или пароль");
       }
     );
   };
 
   return (
     <>
-      <ResponsiveAppBar></ResponsiveAppBar>
-      <Container maxWidth="xs" sx={{ backgroundColor: "white" }}>
-        <Typography
-          // className={heading}
-          variant="h3"
+      
+      <Container sx={{ backgroundColor: "secondary.main" }}>
+        <Box
+          sx={{
+            marginTop: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          Sign Up
-        </Typography>
+          <Avatar sx={{ m: 1 }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" color={"white"}>
+            Вход
+          </Typography>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <TextField
             {...register("username")}
@@ -72,6 +85,7 @@ const Login: React.FC = () => {
             helperText={errors.username?.message}
             error={!!errors.username?.message}
             fullWidth
+           
           />
           <TextField
             {...register("password")}
@@ -81,6 +95,7 @@ const Login: React.FC = () => {
             helperText={errors.password?.message}
             error={!!errors.password?.message}
             type="password"
+            
             fullWidth
           />
           <Button
@@ -90,18 +105,21 @@ const Login: React.FC = () => {
             color="primary"
             // className={submitButton}
           >
-            Sign In
+            login
           </Button>
-          {message && (
+         
+        </form>
+        {loading ? (
+            <CircularProgress sx={{ color: "white" }} />
+          ) : (
             <>
               <Typography variant="body1">{message}</Typography>
-              <Typography variant="body2"></Typography>
             </>
           )}
-        </form>
+        </Box>
       </Container>
     </>
   );
 };
 
-export default Login;
+export default LoginForm;

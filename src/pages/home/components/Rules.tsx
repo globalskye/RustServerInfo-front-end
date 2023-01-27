@@ -149,46 +149,57 @@ const RulesComponent = () => {
   };
   return (
     <>
-      <ResponsiveAppBar></ResponsiveAppBar>
       <Grid
-        container
-        justifyItems={"center"}
-        alignItems={"center"}
-        direction={"column"}
-        sx={{ minHeight: "100vh" }}
+        style={{
+          width: "1500px",
+          margin: "0 auto",
+          minHeight: "100%",
+          height: "auto !important",
+        }}
       >
-        <Grid item>
-          <Box
-            bgcolor="#60EFE7"
-            sx={{
-              borderRadius: "10px",
-              paddingRight: "12px",
-              paddingLeft: "12px",
-            }}
-          >
+        <ResponsiveAppBar />
+        <Grid
+          
+          container
+          justifyItems={"center"}
+          alignItems={"center"}
+          direction={"column"}
+          sx={{ minHeight: "100vh" }}
+        >
+          <Grid item>
             <Box
+              bgcolor={"secondary.main"}
+              border={"1px solid #40444E"}
               sx={{
-                margin: "5px",
-                position: "relative",
-                width: "800px",
+                borderRadius: "10px",
+                paddingRight: "12px",
+                paddingLeft: "12px",
               }}
             >
-              <Typography
-                variant="h5"
-                textAlign="center"
-                style={{ fontWeight: 1000 }}
+              <Box
+                sx={{
+                  margin: "5px",
+                  position: "relative",
+                  width: "800px",
+                }}
               >
-                ПРАВИЛА
-              </Typography>
-              <List>
-                <Rule1 />
-                <Rule2 />
-                <Rule3 />
-                <Rule4 />
-                <Rule5 />
-              </List>
+                <Typography
+                  variant="h5"
+                  textAlign="center"
+                  style={{ fontWeight: 1000 }}
+                >
+                  ПРАВИЛА
+                </Typography>
+                <List>
+                  <Rule1 />
+                  <Rule2 />
+                  <Rule3 />
+                  <Rule4 />
+                  <Rule5 />
+                </List>
+              </Box>
             </Box>
-          </Box>
+          </Grid>
         </Grid>
       </Grid>
     </>

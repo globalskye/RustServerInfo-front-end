@@ -18,6 +18,8 @@ table {
   th {
     background-color: #1F2026;
     font-weight: bold;
+    
+    color:#92a8d1;
     transition: background-color 0.3s ease-in-out;
   }
   

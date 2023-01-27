@@ -72,7 +72,6 @@ const TopClans = () => {
         <Typography
           variant="h5"
           textAlign="center"
-          fontFamily={"gas"}
           style={{ fontWeight: 1000 }}
         >
           Топ 10 кланов

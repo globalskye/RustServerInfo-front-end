@@ -1,4 +1,4 @@
-import { Box, Container, Grid, TextField } from "@mui/material";
+import { Box, Chip, Container, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { TablePlayer } from "../../types";
 import ResponsiveAppBar from "../navbar/Navbar";
@@ -59,95 +59,95 @@ const PlayerListComponent: React.FC<TableProps> = ({ data }) => {
         <ResponsiveAppBar></ResponsiveAppBar>
         <Grid>
           <Box sx={{ flexGrow: 1 }}>
-            <Container maxWidth="xl">
-              <Grid container>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={9}>
-                  <Box
-                    textAlign={"center"}
-                    bgcolor={"secondary.main"}
-                    border={"1px solid #40444E"}
-                    sx={{
-                      borderTopLeftRadius: "20px",
-                      borderTopRightRadius: "20px",
-                    }}
-                  >
-                    <div style={{ margin: "20px" }}>
-                      <TextField
-                        type="text"
-                        variant="outlined"
-                        label="Поиск..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                      />
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th onClick={() => handleHeaderClick("name")}>
-                              Name
-                            </th>
+            <Box
+              textAlign={"center"}
+              bgcolor={"secondary.main"}
+              border={"1px solid #40444E"}
+              sx={{
+                borderTopLeftRadius: "20px",
+                borderTopRightRadius: "20px",
+              }}
+            >
+              <div style={{ margin: "20px", }}>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Поиск..."
+                  value={searchQuery}
+                  sx={{width:'100%', border:"1px solid #40444E", marginBottom:'10px'}}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th onClick={() => handleHeaderClick("name")}>Name</th>
 
-                            <th
-                              onClick={() => handleHeaderClick("killedPlayers")}
-                            >
-                              <div>Убито</div>
-                              <div>Игроков</div>
-                            </th>
-                            <th onClick={() => handleHeaderClick("deaths")}>
-                              Смертей
-                            </th>
+                      <th onClick={() => handleHeaderClick("killedPlayers")}>
+                        <div>Убито</div>
+                        <div>Игроков</div>
+                      </th>
+                      <th onClick={() => handleHeaderClick("deaths")}>
+                        Смертей
+                      </th>
 
-                            <th
-                              onClick={() => handleHeaderClick("killedAnimals")}
-                            >
-                              <div>Убито</div>
-                              <div>Животных</div>
-                            </th>
-                            <th
-                              onClick={() => handleHeaderClick("killedMutants")}
-                            >
-                              <div>Убито</div>
-                              <div>Мутантов</div>
-                            </th>
-                            <th onClick={() => handleHeaderClick("balance")}>
-                              Balance
-                            </th>
+                      <th onClick={() => handleHeaderClick("killedAnimals")}>
+                        <div>Убито</div>
+                        <div>Животных</div>
+                      </th>
+                      <th onClick={() => handleHeaderClick("killedMutants")}>
+                        <div>Убито</div>
+                        <div>Мутантов</div>
+                      </th>
+                      <th onClick={() => handleHeaderClick("balance")}>
+                        Balance
+                      </th>
 
-                            <th onClick={() => handleHeaderClick("online")}>
-                              <div>Часов</div>
-                              <div>На сервере</div>
-                            </th>
-                            <th onClick={() => handleHeaderClick("raid")}>
-                              <div>Зарейжено</div>
-                              <div>Объектов</div>
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {filteredData.map((row) => (
-                            <tr
-                              key={row._id}
-                              onClick={() => handleRedirect(row.name)}
-                            >
-                              <td style={{color:'#92a8d1'}}>{row.name}</td>
+                      <th onClick={() => handleHeaderClick("online")}>
+                        <div>Часов</div>
+                        <div>На сервере</div>
+                      </th>
+                      <th onClick={() => handleHeaderClick("raid")}>
+                        <div>Зарейжено</div>
+                        <div>Объектов</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredData.map((row) => (
+                      <tr
+                        key={row._id}
+                        onClick={() => handleRedirect(row.name)}
+                      >
+                        <td style={{ color: "#92a8d1" }}><Chip
+                            key={row._id}
+                            label={row.name}
+                            sx={{
+                              border: "1px solid #40444E",
+                              borderRadius: "5px",
+                              fontSize: "25px",
 
-                              <td>{row.killedPlayers}</td>
-                              <td>{row.deaths}</td>
-                              <td>{row.killedAnimals}</td>
-                              <td>{row.killedMutants}</td>
-                              <td>{row.balance}</td>
+                              color: "#85DED6",
+                            }}
+                            onClick={() =>
+                              navigate("/players/" + row.name)
+                            }
+                            clickable
+                          /></td>
 
-                              <td>{(row.online / 64).toFixed(2)}</td>
-                              <td>{row.raid}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Container>
+                        <td>{row.killedPlayers}</td>
+                        <td>{row.deaths}</td>
+                        <td>{row.killedAnimals}</td>
+                        <td>{row.killedMutants}</td>
+                        <td>{row.balance}</td>
+
+                        <td>{(row.online / 64).toFixed(2)}</td>
+                        <td>{row.raid}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Box>
           </Box>
         </Grid>
       </Grid>

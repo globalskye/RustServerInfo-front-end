@@ -1,10 +1,10 @@
-import { Box, Container, Grid, TextField } from "@mui/material";
+import { Box, Chip, Container, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { TableClan } from "../../types";
 import ResponsiveAppBar from "../navbar/Navbar";
 import "./table.css";
 import { Link, useNavigate } from "react-router-dom";
-import { getClans, getPlayers } from "../../service";
+import { getClans } from "../../service";
 
 interface TableProps {
   data: TableClan[];
@@ -52,82 +52,113 @@ const ClansListComponent: React.FC<TableProps> = ({ data }) => {
         style={{
           width: "1500px",
           margin: "0 auto",
-          minHeight: "100%",
+
           height: "auto !important",
         }}
       >
         <ResponsiveAppBar></ResponsiveAppBar>
         <Grid>
           <Box sx={{ flexGrow: 1 }}>
-            <Container maxWidth="xl">
-              <Grid container>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={9}>
-                  <Box
-                    textAlign={"center"}
-                    bgcolor={"secondary.main"}
-                    border={"1px solid #40444E"}
-                    sx={{
-                      borderTopLeftRadius: "20px",
-                      borderTopRightRadius: "20px",
-                    }}
-                  >
-                    <div style={{ margin: "20px" }}>
-                      <TextField
-                        type="text"
-                        variant="outlined"
-                        label="Поиск..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                      />
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th onClick={() => handleHeaderClick("name")}>
-                              Имя клана
-                            </th>
+            <Box
+              textAlign={"center"}
+              bgcolor={"secondary.main"}
+              border={"1px solid #40444E"}
+              sx={{
+                borderTopLeftRadius: "20px",
+                borderTopRightRadius: "20px",
+              }}
+            >
+              <div style={{ margin: "20px" }}>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Поиск..."
+                  value={searchQuery}
+                  sx={{
+                    width: "100%",
+                    border: "1px solid #40444E",
 
-                            <th>Лидер</th>
-                            <th onClick={() => handleHeaderClick("level")}>
-                              Уровень
-                            </th>
-                            <th onClick={() => handleHeaderClick("balance")}>
-                              Баланс
-                            </th>
+                    marginBottom: "10px",
+                  }}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Имя клана</th>
+                      <th>Аббревиатура</th>
 
-                            <th onClick={() => handleHeaderClick("tax")}>
-                              Налог
-                            </th>
+                      <th>Лидер</th>
+                      <th onClick={() => handleHeaderClick("level")}>
+                        Уровень
+                      </th>
+                      <th onClick={() => handleHeaderClick("balance")}>
+                        Баланс
+                      </th>
 
-                            <th onClick={() => handleHeaderClick("experience")}>
-                              Опыт
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {filteredData.map((row) => (
-                            <tr
-                              key={row._id}
-                              
-                            >
-                              <td style={{ color: "#92a8d1" }} onClick={() => handleRedirect(row.name)}>{row.name}</td>
+                      <th onClick={() => handleHeaderClick("tax")}>Налог</th>
 
-                              <td style={{ color: "#92a8d1" }}>
-                                <Link to={"/players/"+row.leader.name}>{row.leader.name}</Link>
-                              </td>
-                              <td onClick={() => handleRedirect(row.name)}>{row.level}</td>
-                              <td onClick={() => handleRedirect(row.name)}>{row.balance}</td>
-                              <td onClick={() => handleRedirect(row.name)}>{row.tax}</td>
-                              <td onClick={() => handleRedirect(row.name)}>{row.experience}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Container>
+                      <th onClick={() => handleHeaderClick("experience")}>
+                        Опыт
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredData.map((row) => (
+                      <tr key={row._id}>
+                        <td>
+                          <Chip
+                            key={row._id}
+                            label={row.name}
+                            sx={{
+                              border: "1px solid #40444E",
+                              borderRadius: "5px",
+                              fontSize: "25px",
+
+                              color: "#85DED6",
+                            }}
+                            onClick={() => handleRedirect(row.name)}
+                            clickable
+                          />
+                        </td>
+                        <td onClick={() => handleRedirect(row.name)}>
+                          {row.abbr}
+                        </td>
+                        <td>
+                          <Chip
+                            key={row._id}
+                            label={row.leader.name}
+                            sx={{
+                              border: "1px solid #40444E",
+                              borderRadius: "5px",
+                              fontSize: "25px",
+
+                              color: "#85DED6",
+                            }}
+                            onClick={() =>
+                              navigate("/players/" + row.leader.name)
+                            }
+                            clickable
+                          />
+                        </td>
+                        <td onClick={() => handleRedirect(row.name)}>
+                          {row.level}
+                        </td>
+                        <td onClick={() => handleRedirect(row.name)}>
+                          {row.balance}
+                        </td>
+                        <td onClick={() => handleRedirect(row.name)}>
+                          {row.tax}
+                        </td>
+                        <td onClick={() => handleRedirect(row.name)}>
+                          {row.experience}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Box>
           </Box>
         </Grid>
       </Grid>

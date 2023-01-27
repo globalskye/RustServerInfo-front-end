@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//const API_URL = 'https://api.rustdark.site/auth/';
+//onst API_URL = 'https://api.rustdark.site/auth/';
 
 const API_URL = 'http://localhost:8000/auth/';
 
@@ -41,3 +41,15 @@ export const getCurrentUser = () => {
 };
 // export const getCurrentUserRole = () => {};
 
+export const authHeader = () => {
+  const userStr = localStorage.getItem('user');
+  let user = null;
+  if (userStr) user = JSON.parse(userStr);
+
+  if (user && user.accessToken) {
+    return { Authorization: 'Bearer ' + user.accessToken }; 
+  } else {
+    return { Authorization: '' }; 
+   
+  }
+}

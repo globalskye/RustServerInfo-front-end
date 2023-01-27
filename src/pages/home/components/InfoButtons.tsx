@@ -27,7 +27,7 @@ const InfoButtons = () => {
             height: "40px",
             marginTop: "4px",
 
-            color: "blue",
+            color:'text.secondary'
           }}
           href="https://hostfun.ru/RustLegacy_Setup.exe"
         >
@@ -40,7 +40,7 @@ const InfoButtons = () => {
             height: "40px",
             marginTop: "4px",
 
-            color: "blue",
+            color:'text.secondary'
           }}
           onClick={() => navigate("/rules")}
         >
@@ -53,7 +53,7 @@ const InfoButtons = () => {
             width: "100%",
             height: "40px",
             marginTop: "4px",
-            color: "blue",
+            color:'text.secondary'
           }}
           href="https://vk.com/rustdark12"
         >
@@ -66,7 +66,7 @@ const InfoButtons = () => {
             width: "100%",
             height: "40px",
             marginTop: "4px",
-            color: "blue",
+            color:'text.secondary'
           }}
           href="https://vk.com/rustdark12"
         >
@@ -78,7 +78,7 @@ const InfoButtons = () => {
             width: "100%",
             height: "40px",
             marginTop: "4px",
-            color: "blue",
+            color:'text.secondary'
           }}
           href="https://discord.gg/anvrEnVcj9"
         >

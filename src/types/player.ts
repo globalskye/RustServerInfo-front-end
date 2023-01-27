@@ -77,4 +77,6 @@ export interface Player {
     tax: number;
     level: number;
     experience: number;
+    abbr: string;
+   
   }

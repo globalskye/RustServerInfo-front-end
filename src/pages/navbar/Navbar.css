@@ -20,19 +20,24 @@ nav ul li {
     padding: 0 20px; /* add padding to each list item */
 }
 
-nav ul li a {
-    color: #85DED6; /* set text color of links */
-    text-decoration: none; /* remove underline from links */
-    font-size: 18px; /* sets font size of links */
-    font-weight: bold; /* sets font weight of links */
-    transition: all 0.1s ease-in-out; /* adds transition effect to links */
+nav ul li button {
+    color: #85DED6; /* set text color of button */
+    text-decoration: none; /* remove underline from button */
+    font-size: 18px; /* sets font size of button */
+    font-weight: bold; /* sets font weight of button */
+    transition: all 0.1s ease-in-out; /* adds transition effect to button */
+    background-color: transparent; /* remove background color of button */
+    border: none; /* remove border of button */
+    padding: 0; /* remove padding of button */
+    height: 70px; /* sets the height of the button to match the navbar */
 }
 
-nav ul li a:hover {
-    color: #1F2026; /* changes text color of links on hover */
-    background-color: #85DED6; /* changes background color of links on hover */
-    padding: 10px; /* adds padding to links on hover */
-    border-radius: 5px; /* adds border radius to links on hover */
+nav ul li button:hover {
+    color: #1F2026; /* changes text color of button on hover */
+    cursor: pointer;
+    background-color: #85DED6; /* changes background color of button on hover */
+    padding: 10px; /* adds padding to button on hover */
+    border-radius: 5px; /* adds border radius to button on hover */
 }
 
 nav ul.nav-right {

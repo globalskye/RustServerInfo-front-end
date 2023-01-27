@@ -60,29 +60,31 @@ const ServerStatistic = () => {
       }}
     >
       <Typography variant="h5" textAlign="center" style={{ fontWeight: 1000 }}>
-        Статистика
+        Dark Rust Classic
       </Typography>
       <Box
         sx={{
           position: "relative",
         }}
       >
-        <LinearProgress
-          style={{}}
-          sx={{
-            height: "30px",
-            "& .MuiLinearProgress-colorPrimary": {
-              backgroundColor: "#40444E",
-            },
-            "& .MuiLinearProgress-barColorPrimary": {
-              backgroundColor: "#85DED6",
-            },
-            border: "1px solid #40444E",
-          }}
-          variant="buffer"
-          value={online?.nicknames?.length || 0}
-          valueBuffer={100}
-        />
+        <Box sx={{ marginTop: "10px", marginBottom: "10px" }}>
+          <LinearProgress
+            style={{}}
+            sx={{
+              height: "30px",
+              "& .MuiLinearProgress-colorPrimary": {
+                backgroundColor: "#40444E",
+              },
+              "& .MuiLinearProgress-barColorPrimary": {
+                backgroundColor: "#85DED6",
+              },
+              border: "1px solid #40444E",
+            }}
+            variant="buffer"
+            value={online?.nicknames?.length || 0}
+            valueBuffer={100}
+          />
+        </Box>
 
         <Typography
           style={{
