@@ -8,7 +8,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,6 +23,7 @@ const Concreteclan = () => {
     getClanByName(name).then(
       (response) => {
         setClan(response.data);
+        console.log(response.data)
       },
       (error) => {
         console.log(error);
@@ -112,18 +113,23 @@ const Concreteclan = () => {
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box>
-              {clan.members?.map((Player: Player) => (
-                <Chip
-                  key={Player.name}
-                  label={Player.name}
-                  sx={{
-                    border: "1px solid #40444E",
-                    borderRadius: "10px",
-                    margin: "2px",
-                  }}
-                  onClick={() => handleRedirect(Player.name)}
-                  clickable
-                />
+              {clan.members?.map((player: Player) => (
+                <>
+                  <Chip
+                    key={player._id}
+                    label={player.name}
+                    sx={{
+                      border: `1px solid ${
+                        player.onlineOnServerNow ? "yellow" : "#40444E"
+                      }`,
+                      borderRadius: "5px",
+
+                      margin: "2px",
+                    }}
+                    onClick={() => handleRedirect(player.name)}
+                    clickable
+                  />
+                </>
               ))}
             </Box>
           </Collapse>
@@ -135,7 +141,7 @@ const Concreteclan = () => {
 
   return (
     <>
-    <Grid
+      <Grid
         style={{
           width: "1500px",
           margin: "0 auto",
@@ -143,53 +149,52 @@ const Concreteclan = () => {
           height: "auto !important",
         }}
       >
-      <ResponsiveAppBar></ResponsiveAppBar>
-      <Grid
-        container
-        justifyItems={"center"}
-        alignItems={"center"}
-        direction={"column"}
-        sx={{ minHeight: "100vh" }}
-      >
-        <Grid item>
-          <Box
-            
-            sx={{
-              borderRadius: "10px",
-              paddingRight: "12px",
-              paddingLeft: "12px",
-            }}
-          >
-           <Box
-              bgcolor={"secondary.main"}
-              border={"1px solid #40444E"}
+        <ResponsiveAppBar></ResponsiveAppBar>
+        <Grid
+          container
+          justifyItems={"center"}
+          alignItems={"center"}
+          direction={"column"}
+          sx={{ minHeight: "100vh" }}
+        >
+          <Grid item>
+            <Box
               sx={{
-                fontWeight: "bold",
                 borderRadius: "10px",
                 paddingRight: "12px",
                 paddingLeft: "12px",
               }}
             >
               <Box
+                bgcolor={"secondary.main"}
+                border={"1px solid #40444E"}
                 sx={{
-                  margin: "5px",
-                  position: "relative",
-                  width: "650px",
+                  fontWeight: "bold",
+                  borderRadius: "10px",
+                  paddingRight: "12px",
+                  paddingLeft: "12px",
                 }}
               >
-              <Typography
-                variant="h5"
-                textAlign="center"
-                style={{ fontWeight: 1000 }}
-              >
-                {clan?.name.toUpperCase()}
-              </Typography>
-              <ClanInfo />
+                <Box
+                  sx={{
+                    margin: "5px",
+                    position: "relative",
+                    width: "650px",
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    textAlign="center"
+                    style={{ fontWeight: 1000 }}
+                  >
+                    {clan?.name.toUpperCase()}
+                  </Typography>
+                  <ClanInfo />
+                </Box>
               </Box>
             </Box>
-          </Box>
+          </Grid>
         </Grid>
-      </Grid>
       </Grid>
     </>
   );

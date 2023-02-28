@@ -11,6 +11,7 @@ export interface Player {
     killedPlayers: number;
     killedMutants: number;
     killedAnimals: number;
+    onlineOnServerNow: boolean;
     deaths: number;
     kits?: (KitsEntity)[] | null;
     farm: Farm;
@@ -27,6 +28,7 @@ export interface Player {
     firstConnectTime: Date;
     lastConnectTime: Date;
     balance: number;
+    onlineOnServerNow: boolean;
     killedPlayers: number;
     killedMutants: number;
     killedAnimals: number;

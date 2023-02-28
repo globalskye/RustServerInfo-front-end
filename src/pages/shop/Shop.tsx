@@ -9,58 +9,35 @@ import {
   Fade,
   Slide,
   Grow,
+  Box,
 } from "@mui/material";
 import { ShopItem } from "../../types";
-import RustShopItemCard  from "./components/Item";
+
 import ResponsiveAppBar from "../navbar/Navbar";
-import { TransitionGroup, CSSTransition,  } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { getAllShopItems } from "../../service/ShopService";
+import ItemCard from "./components/Item";
 
 interface Props {
   items: ShopItem[];
 }
-const items = [
-  {
-    _id: "63c5344122fqweqwe260cb740a",
-    name: "Император",
-    category: "Category1",
-    photoUrl: "https://i.imgur.com/es77VFc.png",
-    description: "Подходит для фарма",
-    price: 140,
-    attachments: [
-      { name: "kit uber", description: "kit uber", photoUrl: "" },
-      { name: "kit ubergun", description: "kit uber", photoUrl: "" },
-    ],
-  },
-  {
-    _id: "63c5344122qweeecb740a",
-    name: "Император",
-    category: "All",
-    photoUrl: "https://i.imgur.com/RMo35xp.jpeg",
-    description: "Подходит для фарма",
-    price: 140,
-    attachments: [
-      { name: "kit uber", description: "kit uber", photoUrl: "" },
-      { name: "kit ubergun", description: "kit uber", photoUrl: "" },
-    ],
-  },
-  {
-    _id: "63c5344122f4a5a26ewe0cb740a",
-    name: "Император",
-    category: "Category2",
-    photoUrl: "https://i.imgur.com/8IT3ufK.jpeg",
-    description: "Подходит для фарма",
-    price: 140,
-    attachments: [
-      { name: "kit uber", description: "kit uber", photoUrl: "" },
-      { name: "kit ubergun", description: "kit uber", photoUrl: "" },
-    ],
-  },
-];
 
 const ShopPage = () => {
-  const [category, setCategory] = useState('All');
+  const [category, setCategory] = useState("All");
   const [show, setShow] = useState(false);
-  const isWide = useMediaQuery('(min-width:1400px)');
+  const [items, setItems] = useState<ShopItem[]>();
+  const isWide = useMediaQuery("(min-width:1400px)");
+
+  useEffect(() => {
+    getAllShopItems().then(
+      (response) => {
+        setItems(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
 
   const handleCategorySelection = (selectedCategory: string) => {
     setShow(false);
@@ -70,9 +47,7 @@ const ShopPage = () => {
     }, 300);
   };
 
-
-
-  const filteredItems = items.filter(
+  const filteredItems = items?.filter(
     (item) => category === "All" || item.category === category
   );
 
@@ -82,43 +57,46 @@ const ShopPage = () => {
         style={{
           width: "1500px",
           margin: "0 auto",
-          minHeight: "100%",
+
           height: "auto !important",
-          justifyItems: "center",
         }}
       >
         <ResponsiveAppBar />
-        <Grid
-          container
-          spacing={2}
-          style={{ maxWidth: 1400, margin: "auto", display: "flex" }}
-        >
-          <Grid item xs={12}>
-            <Button variant="outlined" sx={{color: 'white'}}onClick={() => handleCategorySelection("All")}>All</Button>
-          </Grid>
+        <Grid>
+          <Box sx={{ flexGrow: 1 }}>
+            <Box
+              textAlign={"center"}
+              bgcolor={"secondary.main"}
+              border={"1px solid #40444E"}
+              sx={{
+                borderTopLeftRadius: "20px",
+                borderTopRightRadius: "20px",
+                height: "100vh",
+              }}
+            >
+              <Grid item xs={12}>
+                <Button
+                  variant="outlined"
+                  sx={{ color: "white" }}
+                  onClick={() => handleCategorySelection("All")}
+                >
+                  All
+                </Button>
+              </Grid>
 
-          <Grid item xs={12}>
-          <CSSTransition
-            in={show}
-            timeout={300}
-            unmountOnExit
-          >
-            <Grid container spacing={2}>
-              {filteredItems.map(item => (
-                <Grid item xs={12} sm={6} md={4} key={item._id}>
-                  <RustShopItemCard
-                    item={item}
-                    onClick={()=>{}}
-                    style={{
-                      animation: 'fade-in 300ms ease-in forwards',
-                      visibility: show ? 'visible' : 'hidden'
-                    }}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </CSSTransition>
-          </Grid>
+              <Grid item xs={12}>
+                <CSSTransition in={show} timeout={300} unmountOnExit>
+                  <Grid container spacing={2}>
+                    {filteredItems?.map((item: ShopItem) => (
+                      <Grid item xs={12} sm={6} md={4} key={item._id}>
+                        <ItemCard item={item} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </CSSTransition>
+              </Grid>
+            </Box>
+          </Box>
         </Grid>
       </Grid>
     </>

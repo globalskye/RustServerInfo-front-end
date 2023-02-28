@@ -1,4 +1,11 @@
-import { Box, Chip, Container, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Container,
+  Grid,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { TablePlayer } from "../../types";
 import ResponsiveAppBar from "../navbar/Navbar";
@@ -68,13 +75,17 @@ const PlayerListComponent: React.FC<TableProps> = ({ data }) => {
                 borderTopRightRadius: "20px",
               }}
             >
-              <div style={{ margin: "20px", }}>
+              <div style={{ margin: "20px" }}>
                 <TextField
                   type="text"
                   variant="outlined"
                   label="Поиск..."
                   value={searchQuery}
-                  sx={{width:'100%', border:"1px solid #40444E", marginBottom:'10px'}}
+                  sx={{
+                    width: "100%",
+                    border: "1px solid #40444E",
+                    marginBottom: "10px",
+                  }}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <table className="table">
@@ -118,21 +129,37 @@ const PlayerListComponent: React.FC<TableProps> = ({ data }) => {
                         key={row._id}
                         onClick={() => handleRedirect(row.name)}
                       >
-                        <td style={{ color: "#92a8d1" }}><Chip
+                        <td style={{ color: "#92a8d1" }}>
+                          {row.onlineOnServerNow ? (
+                            <>
+                              <Chip
+                                key={row._id}
+                                label={row.name}
+                                sx={{
+                                  border: "1px solid yellow",
+                                  borderRadius: "5px",
+                                  fontSize: "25px",
+                                  color: "#85DED6",
+                                }}
+                                onClick={() => navigate("/players/" + row.name)}
+                                clickable
+                              />
+                            </>
+                          ) : (
+                            <><Chip
                             key={row._id}
                             label={row.name}
                             sx={{
-                              border: "1px solid #40444E",
+                              border: `1px solid ${row.onlineOnServerNow ? "yellow" : "#40444E"}`,
                               borderRadius: "5px",
                               fontSize: "25px",
-
                               color: "#85DED6",
                             }}
-                            onClick={() =>
-                              navigate("/players/" + row.name)
-                            }
+                            onClick={() => navigate("/players/" + row.name)}
                             clickable
-                          /></td>
+                          /></>
+                          )}
+                        </td>
 
                         <td>{row.killedPlayers}</td>
                         <td>{row.deaths}</td>
@@ -169,7 +196,35 @@ const PlayerList = () => {
   if (data) {
     return <PlayerListComponent data={data} />;
   } else {
-    return <></>;
+    return (
+      <>
+        <Grid
+          style={{
+            width: "1500px",
+            margin: "0 auto",
+            height: "auto !important",
+          }}
+        >
+          <ResponsiveAppBar></ResponsiveAppBar>
+          <Grid>
+            <Box sx={{ flexGrow: 1 }}>
+              <Box
+                textAlign={"center"}
+                bgcolor={"secondary.main"}
+                border={"1px solid #40444E"}
+                sx={{
+                  borderTopLeftRadius: "20px",
+                  borderTopRightRadius: "20px",
+                  height: "100vh",
+                }}
+              >
+                <CircularProgress sx={{ color: "white" }} size={300} />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </>
+    );
   }
 };
 export default PlayerList;

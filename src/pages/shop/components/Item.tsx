@@ -9,40 +9,31 @@ import {
   Button,
   Grid,
   TextField,
+  Input,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ShopItem } from "../../../types";
+import styled from "styled-components";
 
-interface Props {
-  name: string;
-  image: string;
-  price: number;
-  
-}
-interface ItemProps {
-  item: ShopItem;
-  onClick: () => void;
-  style?: React.CSSProperties;
-}
+const StyledCard = styled(Card)`
+ 
+`;
 
-const RustShopItemCard: React.FC<ItemProps> = ({ item, onClick,style }) => {
+const StyledCardMedia = styled(CardMedia)`
+  height: 0;
+  padding-top: 56.25%; /* 16:9 */
+`;
+
+const StyledCardContent = styled(CardContent)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ItemCard: React.FC<{ item: ShopItem }> = ({ item }) => {
   const [open, setOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [filter, setFilter] = useState("");
-  const [count, setCount] = useState(1);
+  const [quantity, setQuantity] = useState(1);
 
-
-  useEffect(() => {
-    if (isHovered) {
-      const randomHue = Math.floor(Math.random() * 360);
-      const randomSaturate = Math.floor(Math.random() * 100) + 100;
-      setFilter(
-        `hue-rotate(${randomHue}deg) saturate(${randomSaturate}%) brightness(100%)`
-      );
-    } else {
-      setFilter("none");
-    }
-  }, [isHovered]);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -50,76 +41,56 @@ const RustShopItemCard: React.FC<ItemProps> = ({ item, onClick,style }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCount(Number(event.target.value));
-  };
 
+  const handleAddToCart = () => {
+    // add item to cart with quantity
+    console.log(`Added ${item.name} x ${quantity} to cart`);
+  };
 
   return (
     <>
-      <Card
-       
-        style={{
-          ...style,
-          width:'100%',
-          transform: isHovered ? "scale(1.05)" : "scale(1) ",
-          transition: "transform 0.2s ease-in-out",
-          filter: filter,
-          boxShadow: isHovered ? "0px 0px 15px #888888" : "none",
-          cursor: "pointer",
-        }}
-        onClick={onClick} 
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <CardActionArea onClick={handleOpen}>
-          <CardMedia sx={{ height: 400, width:300}} image={item.photoUrl} title={item.name} />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {item.name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Price: ${item.price}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <StyledCard onClick={handleOpen}>
+       <img src={item.imageUrl}  />
+        <StyledCardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {item.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Price: {item.price}
+          </Typography>
+        </StyledCardContent>
+      </StyledCard>
       <Modal
         open={open}
         onClose={handleClose}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        aria-labelledby="item-modal"
+        aria-describedby="item-modal-description"
       >
-        <div
-          style={{
-            backgroundColor: "white",
-            border: "2px solid #000",
-            boxShadow: "0px 3px 5px #000",
-            padding: "1rem",
-          }}
-        >
-          <img src={item.photoUrl} alt={item.name} style={{ maxWidth: "100%" }} />
-          <p>{item.name}</p>
-          <p>Price: {item.price} p.</p>
-           <TextField
-              label="Count"
-              type="number"
-              value={count}
-              onChange={handleCountChange}
-            />
-            <Button>Add to Cart</Button>
-          <Button variant="contained" color="primary">
-            Add to Cart
-          </Button>
+        <div>
+          <Typography variant="h5" id="item-modal-title">
+            {item.name}
+          </Typography>
+          <Typography variant="subtitle1" id="item-modal-description">
+            {item.description}
+          </Typography>
+          <Typography variant="subtitle1" id="item-modal-price">
+            Price: {item.price}
+          </Typography>
+          <Typography variant="subtitle1" id="item-modal-rank">
+            Rank: {item.rank}
+          </Typography>
+
+          <Input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(parseInt(e.target.value))}
+            aria-labelledby="item-quantity"
+            inputProps={{ min: 1 }}
+          />
+          <Button onClick={handleAddToCart}>Add to Cart</Button>
         </div>
       </Modal>
     </>
   );
 };
-
-
-export default RustShopItemCard;
-
+export default ItemCard

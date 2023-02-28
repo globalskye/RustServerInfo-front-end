@@ -1,4 +1,11 @@
-import { Box, Chip, Container, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Container,
+  Grid,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { TableClan } from "../../types";
 import ResponsiveAppBar from "../navbar/Navbar";
@@ -167,10 +174,13 @@ const ClansListComponent: React.FC<TableProps> = ({ data }) => {
 };
 const ClansList = () => {
   const [data, setClans] = useState<TableClan[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     getClans().then(
       (response) => {
         setClans(response.data);
+        setLoading(false);
       },
       (error) => {
         console.log(error);
@@ -180,7 +190,36 @@ const ClansList = () => {
   if (data) {
     return <ClansListComponent data={data} />;
   } else {
-    return <></>;
+    return (
+      <>
+        <Grid
+          style={{
+            width: "1500px",
+            margin: "0 auto",
+
+            height: "auto !important",
+          }}
+        >
+          <ResponsiveAppBar></ResponsiveAppBar>
+          <Grid>
+            <Box sx={{ flexGrow: 1 }}>
+              <Box
+                textAlign={"center"}
+                bgcolor={"secondary.main"}
+                border={"1px solid #40444E"}
+                sx={{
+                  borderTopLeftRadius: "20px",
+                  borderTopRightRadius: "20px",
+                  height:'100vh'
+                }}
+              >
+                <CircularProgress sx={{color:'white'}} size={300} />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </>
+    );
   }
 };
 export default ClansList;

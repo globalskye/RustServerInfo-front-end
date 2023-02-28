@@ -21,10 +21,10 @@ interface IFormInput {
 }
 
 const schema = yup.object().shape({
-  username: yup.string().required("Имя обязательно").min(2).max(25).matches(/^[a-zA-Z ]*$/, 'Only english letters are allowed'),
-  password: yup.string().required("Имя обязательно").matches(/^[a-zA-Z ]*$/, 'Only english letters are allowed'),
+  username: yup.string().required("Имя обязательно").min(2).max(25).matches(/^[a-zA-Z0-9 ]*$/, 'Only english letters are allowed'),
+  password: yup.string().required("Имя обязательно"),
   confirmPassword: yup
-    .string().matches(/^[a-zA-Z ]*$/, 'Only english letters are allowed')
+    .string()
     .oneOf([yup.ref("password"), null], "Пароли должны совпадать"),
 });
 const RegisterForm = () => {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//onst API_URL = 'https://api.rustdark.site/auth/';
+//  const API_URL = 'https://api.rustdark.site/auth/';
 
 const API_URL = 'http://localhost:8000/auth/';
 

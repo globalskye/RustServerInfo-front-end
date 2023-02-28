@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import AdminPage from "../pages/admin/AdminPage";
 
 import ClanList from "../pages/clans/ClanList";
 import ConcreteClan from "../pages/clans/ConcretClan";
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
     path: "/rules",
     element: <RulesComponent />,
   },
+  {
+    path:"/admin",
+    element: <AdminPage />
+  }
 ]);
 
 export default router;

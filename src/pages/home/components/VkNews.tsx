@@ -1,6 +1,4 @@
-import {
-  Box, Card, CardContent, List, Typography
-} from "@mui/material";
+import { Box, Card, CardContent, List, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import styled from "styled-components";
@@ -13,31 +11,31 @@ const ScrollableList = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 0.2em;
-    background-color: #f5f5f5;
+    background-color: #40444e;
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #555;
+    background-color: #40444e;
   }
 `;
 const CenteredContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1F2026;
+  background-color: #1f2026;
 `;
 const DateContainer = styled.div`
   float: right;
   font-size: 15px;
-  background-color: #1F2026;
-  margin-right: 18px
+  background-color: #1f2026;
+  margin-right: 18px;
 `;
 
 const TextContainer = styled.div`
   padding: 10px;
   text-align: left;
-  background-color: #1F2026;
+  background-color: #1f2026;
 `;
 
 const Heading = styled(Typography)`
@@ -51,7 +49,6 @@ const NewsList = () => {
     getVkNews().then(
       (response) => {
         setData(response.data);
-        
       },
       (error) => {
         console.log(error);
@@ -70,7 +67,6 @@ const NewsList = () => {
         paddingLeft: "12px",
       }}
     >
-      
       <List
         sx={{
           borderRadius: "10px",
@@ -91,7 +87,7 @@ const NewsList = () => {
                   {item.text.split("\n")[0]}
                 </Heading>
                 <div
-                  style={{ marginTop: "-25px",  }}
+                  style={{ marginTop: "-25px" }}
                   dangerouslySetInnerHTML={{
                     __html: item.text
                       .replace(item.text.split("\n")[0], "")
@@ -101,7 +97,7 @@ const NewsList = () => {
                 />
               </TextContainer>
 
-              <CardContent sx={{backgroundColor:'#1F2026'}}>
+              <CardContent sx={{ backgroundColor: "#1F2026" }}>
                 <CenteredContainer>
                   {item.imageLink && (
                     // eslint-disable-next-line jsx-a11y/alt-text
@@ -119,15 +115,10 @@ const NewsList = () => {
                   )}
                 </CenteredContainer>
               </CardContent>
-             
-            
-              
-              
+
               <DateContainer>
                 {new Date(item.date * 1000).toLocaleDateString()}
-               
               </DateContainer>
-              
             </Card>
           ))}
         </ScrollableList>
