@@ -9091,6 +9091,13 @@
     "iconv-lite" "0.4.24"
     "unpipe" "1.0.0"
 
+"rcon-client@^4.2.3":
+  "integrity" "sha512-g+DEzI3O0Nl4Y3mPp6DHhSpYeiv+wTq8iKxCumFGO0/SMCsdNfx9bpT5RyHa7phR5dvspKfQK0ZYJp1YCtXNng=="
+  "resolved" "https://registry.npmjs.org/rcon-client/-/rcon-client-4.2.3.tgz"
+  "version" "4.2.3"
+  dependencies:
+    "typed-emitter" "^0.1.0"
+
 "react-app-polyfill@^3.0.0":
   "integrity" "sha512-sZ41cxiU5llIB003yxxQBYrARBqe0repqPTTYBTmMqTz9szeBbE37BehCE891NZsmdZqqP+xWKdT3eo3vOzN8w=="
   "resolved" "https://registry.npmjs.org/react-app-polyfill/-/react-app-polyfill-3.0.0.tgz"
@@ -10568,6 +10575,11 @@
   dependencies:
     "media-typer" "0.3.0"
     "mime-types" "~2.1.24"
+
+"typed-emitter@^0.1.0":
+  "integrity" "sha512-Tfay0l6gJMP5rkil8CzGbLthukn+9BN/VXWcABVFPjOoelJ+koW8BuPZYk+h/L+lEeIp1fSzVRiWRPIjKVjPdg=="
+  "resolved" "https://registry.npmjs.org/typed-emitter/-/typed-emitter-0.1.0.tgz"
+  "version" "0.1.0"
 
 "typedarray-to-buffer@^3.1.5":
   "integrity" "sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q=="

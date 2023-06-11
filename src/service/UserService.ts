@@ -1,8 +1,7 @@
 import axios from "axios";
 import { authHeader } from "./AuthService";
 
-const API_URL = "https://api.rustdark.site/user/";
-//const API_URL = "http://localhost:8000/user/";
+import { USER_URL } from "../urls";
 export const getUserInfo = () => {
-    return axios.get(API_URL, { headers: authHeader() });
+    return axios.get(USER_URL, { headers: authHeader() });
   };

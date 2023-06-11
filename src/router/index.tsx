@@ -8,8 +8,6 @@ import Home from "../pages/home/Home";
 
 import ConcretePlayer from "../pages/players/ConcretPlayer";
 import PlayersList from "../pages/players/PlayersList";
-import ProfilePage from "../pages/profile/Profile";
-
 import ShopPage from "../pages/shop/Shop";
 
 const router = createBrowserRouter([
@@ -22,10 +20,6 @@ const router = createBrowserRouter([
     element: <ShopPage />,
   },
 
-  {
-    path: "/profile",
-    element: <ProfilePage />,
-  },
   {
     path: "/players",
     element: <PlayersList />,
@@ -49,9 +43,9 @@ const router = createBrowserRouter([
     element: <RulesComponent />,
   },
   {
-    path:"/admin",
-    element: <AdminPage />
-  }
+    path: "/admin",
+    element: <AdminPage />,
+  },
 ]);
 
 export default router;

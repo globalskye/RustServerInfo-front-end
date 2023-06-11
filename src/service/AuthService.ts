@@ -1,11 +1,7 @@
 import axios from 'axios';
-
-//  const API_URL = 'https://api.rustdark.site/auth/';
-
-const API_URL = 'http://localhost:8000/auth/';
-
+import { AUTH_URL } from "../urls";
 export const userRegister = (username: string,  password: string) => {
-  return axios.post(API_URL + 'sign-up', {
+  return axios.post(AUTH_URL + 'sign-up', {
     username,
     password
   });
@@ -13,7 +9,7 @@ export const userRegister = (username: string,  password: string) => {
 
 export const login = (username: string, password: string) => {
   return axios
-    .post(API_URL + 'sign-in', {
+    .post(AUTH_URL + 'sign-in', {
       username,
       password
     })
@@ -26,7 +22,7 @@ export const login = (username: string, password: string) => {
     });
 };
 export const checkUser = (name: string) => {
-  return axios.get(API_URL + `userExist/${name}`);
+  return axios.get(AUTH_URL + `userExist/${name}`);
 };
 
 export const logout = () => {

@@ -2,7 +2,6 @@ export interface ShopItem {
   _id: string;
   name: string;
   category: string;
-
   imageUrl: string;
   description: string;
   rank: number;

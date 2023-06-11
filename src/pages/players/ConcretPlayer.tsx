@@ -8,7 +8,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,9 +19,8 @@ import PlayerConnectionStatistic from "./Chart";
 const ConcretePlayer = () => {
   const navigate = useNavigate();
   const { name } = useParams();
-  const [routeName, setRouteName] = useState<string | undefined>('')
+  const [routeName, setRouteName] = useState<string | undefined>("");
   const [Player, setPlayer] = useState<Player>();
-
 
   useEffect(() => {
     getPlayerByName(name).then(
@@ -35,7 +34,6 @@ const ConcretePlayer = () => {
   }, [name]);
 
   const PlayerInfo = () => {
-    
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
@@ -45,7 +43,7 @@ const ConcretePlayer = () => {
     const handleRedirect = (name: string) => {
       navigate(`/clans/${name}`);
     };
-    
+
     const ClanButton = () => {
       if (Player?.clanName) {
         return (
@@ -65,7 +63,7 @@ const ConcretePlayer = () => {
     };
 
     if (Player) {
-      const date = new Date(Player.lastConnectTime)
+      const date = new Date(Player.lastConnectTime);
       return (
         <List>
           <ListItem button>
@@ -105,7 +103,7 @@ const ConcretePlayer = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={(Player.online / 24).toFixed(2)}
+              primary={(Player.online / 60).toFixed(2)}
               style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
@@ -115,8 +113,12 @@ const ConcretePlayer = () => {
               style={{ justifyContent: "left" }}
             />
             <ListItemText
-              primary={date.toLocaleDateString() + ' ' + date.toLocaleTimeString().slice(0, -3)}
-              style={{ justifyContent:  "right", textAlign: "right" }}
+              primary={
+                date.toLocaleDateString() +
+                " " +
+                date.toLocaleTimeString().slice(0, -3)
+              }
+              style={{ justifyContent: "right", textAlign: "right" }}
             />
           </ListItem>
           <ListItem button>
@@ -268,11 +270,8 @@ const ConcretePlayer = () => {
                   {Player?.name.toUpperCase()}
                 </Typography>
                 <PlayerInfo />
-                
               </Box>
-              <PlayerConnectionStatistic />
             </Box>
-            
           </Grid>
         </Grid>
       </Grid>

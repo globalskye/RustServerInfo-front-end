@@ -58,6 +58,7 @@ const ItemCard: React.FC<{ item: ShopItem }> = ({ item }) => {
           <Typography variant="body2" color="textSecondary" component="p">
             Price: {item.price}
           </Typography>
+          <Button sx={{color:'yellow'}}>Купить</Button>
         </StyledCardContent>
       </StyledCard>
       <Modal

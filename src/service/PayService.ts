@@ -1,12 +1,11 @@
 import axios from "axios";
 import { authHeader } from "./AuthService";
 
-//const API_URL = "http://localhost:8001";
-const API_URL = "https://pay.rustdark.site";
+import { PAY_URL } from "../urls";
 
 export const makePayUrl = (username: string, amount: number) => {
   return axios.post(
-    API_URL + "/url",
+    PAY_URL + "/url",
     {
       username: username,
       amount: amount,

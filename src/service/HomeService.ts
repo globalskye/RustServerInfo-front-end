@@ -1,6 +1,5 @@
 import axios from 'axios';
-//const API_URL = "https://api.rustdark.site/api/";
-const API_URL = "http://localhost:8000/api/";
+import { API_URL } from "../urls";
 export const getOnline = () => {
     return axios.get(API_URL + 'online');
 };

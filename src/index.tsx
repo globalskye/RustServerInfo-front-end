@@ -1,13 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 // import './index.css';
-import {
-  createTheme,
-  CssBaseline,
-  ThemeProvider
-} from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -17,20 +14,18 @@ const theme = createTheme({
     secondary: {
       main: "#1F2026",
     },
-    text: { 
-      primary:'#f5f5f5',
-      secondary:'#85DED6'
+    text: {
+      primary: "#f5f5f5",
+      secondary: "#85DED6",
     },
     warning: {
       main: "#85DED6",
     },
     background: {
-      default: '#212429',
-      paper: '1F2026',
-    }
-
+      default: "#212429",
+      paper: "1F2026",
+    },
   },
-  
 
   typography: {
     h5: {
@@ -51,9 +46,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <React.StrictMode>
+    <BrowserRouter>
       <App />
-    </React.StrictMode>
+    </BrowserRouter>
   </ThemeProvider>
 );
 

@@ -13,9 +13,12 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { authHeader } from "../../service";
 import ResponsiveAppBar from "../navbar/Navbar";
+import { WS_URL } from "../../urls";
+
 
 const ScrollableList = styled.div`
   overflow: auto;
+  height: 40vh;
   max-height: 40vh;
   background-color: black;
   border-radius: 4px;
@@ -33,44 +36,54 @@ const ScrollableList = styled.div`
 
 const AdminPage = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [cfg, setCfg] = useState(Object);
   const [dateTime, setDateTime] = useState("");
   const [secret, setSecret] = useState("");
   const [output, setOutput] = useState<string[]>([]);
-  const [isReconnecting, setIsReconnecting] = useState(false); // Add isReconnecting state
+  const [isReconnecting, setIsReconnecting] = useState(true); // Add isReconnecting state
 
   const scrollableListRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     connectWebSocket();
   }, []);
   const connectWebSocket = () => {
-    const newSocket = new WebSocket("SOCKET_URL");
+    const newSocket = new WebSocket(WS_URL);
 
     newSocket.addEventListener("open", () => {
       console.log("WebSocket connected");
+      setIsReconnecting(false);
       setSocket(newSocket);
+      socket?.send(
+        JSON.stringify({
+          method: "GetCfg",
+          token: authHeader(),
+        })
+      );
     });
 
     newSocket.addEventListener("close", () => {
       console.log("WebSocket closed. Reconnecting...");
       setSocket(null);
-
+      setIsReconnecting(true);
       setTimeout(() => {
         connectWebSocket();
-      }, 10000); // Retry every 10 seconds
+      }, 100); // Retry every 10 seconds
     });
+    newSocket.addEventListener("message", handleMessage);
 
     newSocket.addEventListener("error", (error) => {
       console.error("WebSocket error", error);
       newSocket.close();
     });
   };
+  
 
   const handleMessage = (event: MessageEvent) => {
     const newMessage = event.data.toString();
     setOutput((prevOutput) => [...prevOutput, newMessage]);
   };
 
-  const handleSendDateTime = () => {
+  const handleSendWipe = () => {
     if (socket) {
       console.log(dateTime);
       socket.send(
@@ -78,6 +91,16 @@ const AdminPage = () => {
           method: "wipe",
           wipeTime: dateTime.toString(),
           secret: secret,
+          token: authHeader(),
+        })
+      );
+    }
+  };
+  const handleSendTopWipe = () => {
+    if (socket) {
+      socket.send(
+        JSON.stringify({
+          method: "TopWipe",
           token: authHeader(),
         })
       );
@@ -93,6 +116,7 @@ const AdminPage = () => {
 
   return (
     <>
+    
       <Grid
         style={{
           width: "1500px",
@@ -111,8 +135,8 @@ const AdminPage = () => {
             height: "1000px",
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={4} sx={{ marginTop: "20px" }}>
+          <Grid container spacing={2} sx={{ marginTop: "20px" }}>
+            <Grid item xs={4}>
               <TextField
                 id="datetime-local"
                 label="Время вайпа"
@@ -137,28 +161,36 @@ const AdminPage = () => {
                 <Button
                   variant="contained"
                   startIcon={<AddBoxOutlined />}
-                  onClick={handleSendDateTime}
+                  onClick={handleSendWipe}
                 >
-                  Отправить время вайпа
+                  Сделать вайп
+                </Button>
+              </Box>
+              <Box mt={2}>
+                <Button
+                  variant="contained"
+                  startIcon={<AddBoxOutlined />}
+                  onClick={handleSendTopWipe}
+                >
+                  Вывести топы
                 </Button>
               </Box>
             </Grid>
-            <Grid item xs={4}>
-              <Box mt={4}>
-                <Paper elevation={3}>
-                  <ScrollableList ref={scrollableListRef}>
-                    <List sx={{ p: 2 }}>
-                      {output.map((message, index) => (
-                        <ListItemText
-                          key={index}
-                          primary={message}
-                          sx={{ color: "white" }}
-                        />
-                      ))}
-                    </List>
-                  </ScrollableList>
-                </Paper>
-              </Box>
+
+            <Grid item xs={8}>
+              <Paper elevation={3}>
+                <ScrollableList ref={scrollableListRef}>
+                  <List sx={{ p: 2 }}>
+                    {output.map((message, index) => (
+                      <ListItemText
+                        key={index}
+                        primary={message}
+                        sx={{ color: "white" }}
+                      />
+                    ))}
+                  </List>
+                </ScrollableList>
+              </Paper>
 
               {isReconnecting ? (
                 <Box mt={2} sx={{ color: "red" }}>

@@ -2,7 +2,8 @@ import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { Box, Button, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
-import { getCurrentUser, logout } from "../../service";
+import { getCurrentUser, getUserInfo, logout } from "../../service";
+import { User } from "../../types";
 import LoginForm from "../auth/Login";
 import RegisterForm from "../auth/Register";
 import "./Navbar.css";
@@ -22,10 +23,25 @@ const style = {
 const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User>();
   const [form, setForm] = useState<ReactJSXElement>();
   const handleClose = () => setOpen(false);
   const [currentUser, setCurrentUser] = useState();
+  const [isHovered, setIsHovered] = useState(false);
+  const buttonText = isHovered
+    ? "Пополнить баланс!"
+    : `Текущий баланс ${user?.balance}`;
 
+  useEffect(() => {
+    getUserInfo().then(
+      (response) => {
+        setUser(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
   useEffect(() => {
     const user = getCurrentUser();
 
@@ -54,8 +70,15 @@ const ResponsiveAppBar = () => {
         <ul className="nav-right">
           {currentUser ? (
             <>
+              <li></li>
               <li>
-                <button onClick={() => navigate("/profile")}>Профиль</button>
+                <button
+                  onClick={()=>{}}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  {buttonText}
+                </button>
               </li>
               <li>
                 <button
