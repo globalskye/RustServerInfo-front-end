@@ -73,7 +73,7 @@ const ResponsiveAppBar = () => {
               <li></li>
               <li>
                 <button
-                  onClick={()=>{}}
+                  onClick={() => {}}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                 >

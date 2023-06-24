@@ -29,7 +29,7 @@ const InfoButtons = () => {
 
             color:'text.secondary'
           }}
-          href="https://hostfun.ru/RustLegacy_Setup.exe"
+          href="https://rage.hostfun.ru/RustLegacy1.0.5.2.exe"
         >
           <Typography variant="h5">СКАЧАТЬ КЛИЕНТ</Typography>
         </Button>

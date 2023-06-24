@@ -1,4 +1,5 @@
-import { AddBoxOutlined } from "@mui/icons-material";
+import "./tablestyle.css";
+import { AddBoxOutlined, IcecreamOutlined } from "@mui/icons-material";
 import {
   Button,
   CircularProgress,
@@ -6,6 +7,7 @@ import {
   List,
   ListItemText,
   Paper,
+  Typography,
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -14,7 +16,6 @@ import styled from "styled-components";
 import { authHeader } from "../../service";
 import ResponsiveAppBar from "../navbar/Navbar";
 import { WS_URL } from "../../urls";
-
 
 const ScrollableList = styled.div`
   overflow: auto;
@@ -34,6 +35,36 @@ const ScrollableList = styled.div`
   }
 `;
 
+interface TableData {
+  id: number;
+  username: string;
+  lastLogin: string;
+  balance: number;
+  purchases: number;
+}
+const data: TableData[] = [
+  {
+    id: 1,
+    username: "global01(admin)",
+    lastLogin: "2023-06-15",
+    balance: 2000,
+    purchases: 5,
+  },
+  {
+    id: 2,
+    username: "melcon",
+    lastLogin: "2023-06-16",
+    balance: 0,
+    purchases: 2,
+  },
+  {
+    id: 3,
+    username: "Vld",
+    lastLogin: "2023-06-17",
+    balance: 0,
+    purchases: 0,
+  },
+];
 const AdminPage = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [cfg, setCfg] = useState(Object);
@@ -76,7 +107,6 @@ const AdminPage = () => {
       newSocket.close();
     });
   };
-  
 
   const handleMessage = (event: MessageEvent) => {
     const newMessage = event.data.toString();
@@ -116,7 +146,6 @@ const AdminPage = () => {
 
   return (
     <>
-    
       <Grid
         style={{
           width: "1500px",
@@ -175,6 +204,61 @@ const AdminPage = () => {
                   Вывести топы
                 </Button>
               </Box>
+              <Button
+                variant="contained"
+                startIcon={<AddBoxOutlined />}
+                onClick={handleSendTopWipe}
+              >
+                Включить сервер
+              </Button>
+              <Button
+                variant="contained"
+                startIcon={<AddBoxOutlined />}
+                onClick={handleSendTopWipe}
+              >
+                Выключить сервер
+              </Button>
+              <Box mt={2}>
+                <Button
+                  variant="contained"
+                  startIcon={<AddBoxOutlined />}
+                  onClick={handleSendTopWipe}
+                >
+                  Выгрузка всех плагинов
+                </Button>
+                <Box mt={2}>
+                  <Button
+                    variant="contained"
+                    startIcon={<IcecreamOutlined />}
+                    onClick={handleSendTopWipe}
+                  >
+                    Статистика connections/banned
+                  </Button>
+                  <Button
+                    variant="contained"
+                    startIcon={<IcecreamOutlined />}
+                    onClick={handleSendTopWipe}
+                  >
+                    Статистика среднего онлайна
+                  </Button>
+                  <Button
+                    variant="contained"
+                    startIcon={<IcecreamOutlined />}
+                    onClick={handleSendTopWipe}
+                  >
+                    Метрика сервера cpu/ram/disk usage
+                  </Button>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      marginTop: "20px",
+                      borderRadius: "white",
+                    }}
+                  ></Box>
+                </Box>
+              </Box>
             </Grid>
 
             <Grid item xs={8}>
@@ -202,6 +286,38 @@ const AdminPage = () => {
                   Подключено
                 </Box>
               )}
+              <div className="user-table">
+                <h2>Пользователи</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Username</th>
+                      <th>Last Login</th>
+                      <th>Balance</th>
+                      <th>Purchases</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((user) => (
+                      <tr key={user.id}>
+                        <td>{user.username}</td>
+                        <td>{user.lastLogin}</td>
+                        <td>{user.balance}</td>
+                        <td>{user.purchases}</td>
+                        <td>
+                          <button className="edit-btn">Edit</button>
+                          <button className="update-btn">Update</button>
+                          <button className="delete-btn">Delete</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="pagination">
+                  <button className="pagination-btn">+</button>
+                </div>
+              </div>
             </Grid>
           </Grid>
         </Box>
@@ -209,4 +325,5 @@ const AdminPage = () => {
     </>
   );
 };
+
 export default AdminPage;
